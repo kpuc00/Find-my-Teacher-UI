@@ -1,12 +1,13 @@
 import React from 'react';
-import '../styles/App.css';
+import '../styles/components/App.css';
+import TeacherInfoComponent from "./Vasil/TeacherInfoComponent";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello world</h1>
-    </div>
-  );
+    return (
+        <div className="App">
+            <TeacherInfoComponent/>
+        </div>
+    );
 }
 
 export default App;
