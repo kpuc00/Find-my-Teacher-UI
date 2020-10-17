@@ -1,0 +1,59 @@
+.teacher-info .container {
+    max-width: 300px;
+    border: 2px solid rgb(101, 52, 101);
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.teacher-info .header {
+    background-color: rgb(101, 52, 101);
+    color: white;
+    font-family: "RobotoRegular", Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.teacher-info .button-open {
+    max-width: 280px;
+    background-color: rgb(101, 52, 101);
+    color: white;
+    border-radius: 5px;
+    border: 2px solid rgb(101, 52, 101);
+    margin: 10px;
+    padding: 10px;
+    font-family: "RobotoRegular", Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+
+.teacher-info .button-close {
+    height: 23px;
+    width: 23px;
+    background-color: white;
+    color: rgb(101, 52, 101);
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.teacher-info .info {
+    padding: 10px;
+}
+
+.teacher-info .row {
+    border-bottom: 1px solid rgb(101, 52, 101);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.teacher-info .row span:nth-child(1) {
+    font-weight: 500;
+}
+
