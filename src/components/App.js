@@ -1,15 +1,19 @@
 import React from 'react';
-import '../styles/components/App.css';
-import TeacherInfoComponent from "./Vasil/TeacherInfoComponent";
-import SearchBar from "./Misho/SearchBar"
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+  } from "react-router-dom";
+import StudentsView from './StudentsView';
 
 
 function App() {
     return (
-        <div className="App">
-            <SearchBar />
-            <TeacherInfoComponent/>
-        </div>
+        <Router>
+        <Switch>
+            <Route path="/" exact component={StudentsView}/>
+        </Switch>
+        </Router>
     );
 }
 
