@@ -34,23 +34,23 @@ export class FollowersInfoComponent extends Component {
                         <div className={"info"}>
                             <div className={"row"}>
                                 <span>1. Name: {name1}</span>
-                                <span><img src="/resources/green_dot.png" className={"Blink"}></img></span>
+                                <span><img alt="status" src="/resources/green_dot.png" className={"Blink"}></img></span>
                             </div>
                             <div className={"row"}>
                                 <span>2. Name: {name2}</span>
-                                <span><img src="/resources/green_dot.png" className={"Blink"}></img></span>
+                                <span><img alt="status" src="/resources/green_dot.png" className={"Blink"}></img></span>
                             </div>
                             <div className={"row"}>
                                 <span>3. Name: {name3}</span>
-                                <span><img src="/resources/red_dot.png" className={"Blink"}></img></span>
+                                <span><img alt="status" src="/resources/red_dot.png" className={"Blink"}></img></span>
                             </div>
                             <div className={"row"}>
                                 <span>4. Name: {name4}</span>
-                                <span><img src="/resources/red_dot.png" className={"Blink"}></img></span>
+                                <span><img alt="status" src="/resources/red_dot.png" className={"Blink"}></img></span>
                             </div>
                             <div className={"row"}>
                                 <span>5. Name: {name5}</span>
-                                <span><img src="/resources/green_dot.png" className={"Blink"}></img></span>
+                                <span><img alt="status" src="/resources/green_dot.png" className={"Blink"}></img></span>
                             </div>
                         </div>
                     </div>                    
