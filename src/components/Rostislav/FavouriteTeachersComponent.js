@@ -45,9 +45,9 @@ export default class FavouriteTeachersComponent extends Component {
             var keyA = a.nowSharing,
             keyB = b.nowSharing;
 
-            if(keyA == true) return -1;
-            if(keyA == keyB) return -1;
-            if(keyA != keyB) return 1;
+            if(keyA === true) return -1;
+            if(keyA === keyB) return -1;
+            if(keyA !== keyB) return 1;
             return 0;
         });
 
