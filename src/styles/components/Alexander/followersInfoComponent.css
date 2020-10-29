@@ -1,0 +1,67 @@
+.followers .container {
+    max-width: 300px;
+    border: 2px solid rgb(101, 52, 101);
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.followers .header {
+    background-color: rgb(101, 52, 101);
+    color: white;
+    font-family: "RobotoRegular", Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.followers .button-open {
+    max-width: 280px;
+    background-color: rgb(101, 52, 101);
+    color: white;
+    border-radius: 5px;
+    border: 2px solid rgb(101, 52, 101);
+    margin: 10px;
+    padding: 10px;
+    font-family: "RobotoRegular", Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+
+.followers .button-close {
+    height: 23px;
+    width: 23px;
+    background-color: white;
+    color: rgb(101, 52, 101);
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.followers .info {
+    padding: 10px;
+}
+
+.followers .row {   
+    border-bottom: 1px solid rgb(101, 52, 101);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.followers img{
+    height: 1.2rem;
+    width: 1.2rem;
+}
+
+.Blink{
+    animation: blinker 1s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+@keyframes blinker{
+    from{ opacity: 1; }
+    to{ opacity: 0; }
+}
