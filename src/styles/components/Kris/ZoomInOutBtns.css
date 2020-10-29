@@ -1,0 +1,16 @@
+.ZoomInOutBtnContainer{
+    position: absolute;
+    right:    0;
+    bottom:   0;
+}
+
+.ZoomInOutBtnContainer .ZoomBtn{
+    background-color:  rgb(101, 52, 101);
+    border-color: white;
+}
+
+.ZoomInOutBtnContainer .ZoomBtn:hover{
+    background-color: white;
+    color:  rgb(101, 52, 101);
+    border-color:  rgb(101, 52, 101);
+}

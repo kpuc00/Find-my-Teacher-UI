@@ -1,14 +1,20 @@
 import React from 'react';
-import '../styles/components/App.css';
-import FavouriteTeachersComponent from './Rostislav/FavouriteTeachersComponent';
-import TeacherInfoComponent from "./Vasil/TeacherInfoComponent";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+  } from "react-router-dom";
+import StudentsView from './StudentsView';
+import TeachersView from './TeachersView';
 
 function App() {
     return (
-        <div className="App">
-            <TeacherInfoComponent/>
-            <FavouriteTeachersComponent/>
-        </div>
+        <Router>
+        <Switch>
+            <Route path="/" exact component={StudentsView}/>
+            <Route path="/teacher" component={TeachersView}/>
+        </Switch>
+        </Router>
     );
 }
 

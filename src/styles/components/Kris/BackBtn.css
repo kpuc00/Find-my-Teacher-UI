@@ -1,0 +1,16 @@
+.BackBtnContainer{
+    position: absolute;
+    left:    0;
+    bottom:   0;
+}
+
+.BackBtnContainer .BackBtn{
+    background-color:  rgb(101, 52, 101);
+    border-color: white;
+}
+
+.BackBtnContainer .BackBtn:hover{
+    background-color: white;
+    color:  rgb(101, 52, 101);
+    border-color:  rgb(101, 52, 101);
+}

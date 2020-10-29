@@ -1,0 +1,16 @@
+.ToggleLocationBtnContainer{
+    position: absolute;
+    right:    0;
+    top:   0;
+}
+
+.ToggleLocationBtnContainer .ToggleBtn{
+    background-color:  rgb(101, 52, 101);
+    border-color: white;
+}
+
+.ToggleLocationBtnContainer .ToggleBtn:hover{
+    background-color: white;
+    color:  rgb(101, 52, 101);
+    border-color:  rgb(101, 52, 101);
+}
