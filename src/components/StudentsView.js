@@ -8,6 +8,7 @@ import SearchBar from "./Misho/SearchBar"
 
 import ZoomInOutBtns from './Kris/ZoomInOutBtns';
 import BackBtn from './Kris/BackBtn';
+import FavouriteTeachersComponent from './Rostislav/FavouriteTeachersComponent';
 
 
 //Bootstrap
