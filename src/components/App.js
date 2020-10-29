@@ -14,11 +14,15 @@ import FollowersInfoComponent from "./Alexander/FollowersInfoComponent";
 
 function App() {
     return (
-        <div className="App">
-            <TeacherInfoComponent/>
-            <FollowersInfoComponent/>
-        </div>
-
+        <Router>
+            <Switch>
+                {/*Student path*/}
+                <Route exact path={`/student`} component={StudentsView}/>
+                
+                {/*Teacher path*/}
+                <Route exact path={`/teacher`} component={TeachersView}/>
+            </Switch>
+        </Router>
     );
 }
 

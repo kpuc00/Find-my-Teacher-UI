@@ -1,8 +1,5 @@
 body {
     padding: 50px;
+    background-color: hotpink;
 }
 
-.App{
-    position: relative;
-    min-height: 80vh;
-}

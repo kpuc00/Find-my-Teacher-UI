@@ -99,11 +99,11 @@ class AutoCompleteText extends React.Component {
 
     render() {
         return (
-            <div className="SearchBoxText">
-                <input value={this.state.text} onChange={this.handleTextInput} type="text" />
-         
-                    {this.renderSuggestions()}
-          
+            <div className="SearchBox">
+                <div className="SearchBoxText">
+                    <input value={this.state.text} onChange={this.handleTextInput} type="text" />
+                        {this.renderSuggestions()}
+                </div>
             </div>
         )
     }
