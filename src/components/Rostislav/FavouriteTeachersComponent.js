@@ -16,7 +16,7 @@ export default class FavouriteTeachersComponent extends Component {
 
 
     state = {
-        collapseID: ''
+        collapseID: ''        
     };
 
     toggleCollapse = collapseID => () => {
