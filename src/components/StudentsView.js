@@ -2,39 +2,48 @@ import React from 'react';
 
 import '../styles/components/App.css';
 
+import FavouriteTeachersComponent from "./Rostislav/FavouriteTeachersComponent"
+
 import TeacherInfoComponent from "./Vasil/TeacherInfoComponent";
 
 import SearchBar from "./Misho/SearchBar"
 
 import ZoomInOutBtns from './Kris/ZoomInOutBtns';
 import BackBtn from './Kris/BackBtn';
-import FavouriteTeachersComponent from './Rostislav/FavouriteTeachersComponent';
 
 
 //Bootstrap
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container' 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 function StudentsView() {
     return (
-        <Container fluid>
-            <Row>
+
+        <div style={{padding: "20px", backgroundColor: "rgba(122, 122, 122, 0.6)", height: "100vh"}}>
+            <Row style={{height: "10%"}}>
                 <Col>
-                    <div style={{width: "60%"}}>
+                    <div className="float-left">
                         <SearchBar/>
                     </div>
                 </Col>
-                <Col>
 
+                <Col>
+                    <div className="float-right">
+                        <FavouriteTeachersComponent />
+                    </div>
                 </Col>
             </Row>
 
-            <Row>
-                <TeacherInfoComponent/>
+            <Row style={{height: "80%"}}>
+                <Col>
+                    <div className="float-right" >
+                    <TeacherInfoComponent/>
+                    </div>
+                </Col>
             </Row>
 
-            <Row >
+            <Row style={{height: "10%"}}>
                 <Col>
                     <div className="float-left">
                         <BackBtn />
@@ -46,8 +55,10 @@ function StudentsView() {
                     </div>
                 </Col>
             </Row>
-        </Container>
+
+        </div>
     );
 }
+
 
 export default StudentsView;

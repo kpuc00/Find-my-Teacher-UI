@@ -1,5 +1,8 @@
 .SearchBox {
     z-index: 2;
+    position: absolute;
+    width: 40%;
+    margin: 10px;
 }
 
 .SearchBoxText {
@@ -27,6 +30,7 @@
     margin: 0;
     padding: 0;
     border-top: 1px solid grey;
+    background-color: white;
 }
 
 .SearchBoxText ul::before {

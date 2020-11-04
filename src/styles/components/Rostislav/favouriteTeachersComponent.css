@@ -2,10 +2,9 @@
 
 } */
 #favourites{
-    width: 30%;
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: relative;
+    width: 300px;
+    z-index: 2;
 }
 .navbar-toggler-icon{
     background-color: rgb(101, 52, 101);

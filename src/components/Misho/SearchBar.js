@@ -28,7 +28,12 @@ class AutoCompleteText extends React.Component {
                     id: 4,
                     name: "damien",
                     favourite: false
-                }
+                },
+                {
+                    id: 5,
+                    name: "deter",
+                    favourite: false
+                },
             ],
             suggestions: [],
             text: ""
