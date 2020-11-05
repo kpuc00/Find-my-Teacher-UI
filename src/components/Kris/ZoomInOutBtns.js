@@ -4,22 +4,31 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 import '../../styles/components/Kris/ZoomInOutBtns.css';
 
 class ZoomInOutBtns extends Component {
-
-    ZoomIn(){
-        console.log("Zoomed in.")
+    constructor(props) {
+        super(props)
+        this.ZoomIn=this.ZoomIn.bind(this)
     }
 
-    ZoomOut(){
+    componentDidMount(){
+        console.log(this.props)
+    }
+
+    ZoomIn() {
+        console.log("Zoomed in.")
+        this.props.map()
+    }
+
+    ZoomOut() {
         console.log("Zoomed out.")
     }
 
     render() {
         return (
             <div className="ZoomInOutBtnContainer">
-                <Button className="ZoomBtn" onClick={this.ZoomIn}>
+                <Button className="ZoomBtn" onClick={this.props.map}>
                     <FaPlus />
                 </Button>
-                <br/>
+                <br />
                 <Button className="ZoomBtn" onClick={this.ZoomOut}>
                     <FaMinus />
                 </Button>

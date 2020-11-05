@@ -11,22 +11,24 @@ import SearchBar from "./Misho/SearchBar"
 import ZoomInOutBtns from './Kris/ZoomInOutBtns';
 import BackBtn from './Kris/BackBtn';
 
+import  Map from './Map';
+
 import AuthService from "../services/AuthService";
 
 
 //Bootstrap
-import Container from 'react-bootstrap/Container' 
+import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 function StudentsView() {
     return (
 
-        <div style={{padding: "20px", backgroundColor: "rgb(224,224,224)", height: "100vh"}}>
-            <Row style={{height: "10%"}}>
+        <div style={{ padding: "20px", backgroundColor: "rgb(224,224,224)", height: "100vh" }}>
+            <Row style={{ height: "10%" }}>
                 <Col>
                     <div className="float-left">
-                        <SearchBar/>
+                        <SearchBar />
 
                     </div>
                 </Col>
@@ -38,15 +40,18 @@ function StudentsView() {
                 </Col>
             </Row>
 
-            <Row style={{height: "80%"}}>
+            <Row style={{ height: "80%" }}>
                 <Col>
                     <div className="float-right" >
-                    <TeacherInfoComponent/>
+                        <TeacherInfoComponent />
+                    </div>
+                    <div className="map-container">
+                        <Map/>
                     </div>
                 </Col>
             </Row>
 
-            <Row style={{height: "10%"}}>
+            <Row style={{ height: "10%" }}>
                 <Col>
                     <div className="float-left">
                         <BackBtn />
