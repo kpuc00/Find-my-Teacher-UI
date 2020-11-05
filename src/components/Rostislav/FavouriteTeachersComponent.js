@@ -68,11 +68,9 @@ export default class FavouriteTeachersComponent extends Component {
             <Router>
                 <MDBContainer id="favourites">
                     <MDBNavbar
-                        color='light-blue lighten-4'
-                        style={{ marginTop: '20px' }}
                         light
                     >
-                        <MDBContainer>
+                        <MDBContainer >
                             <div className="headOfContainer">
                                 <MDBNavbarBrand>Favourite</MDBNavbarBrand>
                                 <MDBNavbarToggler
@@ -83,6 +81,7 @@ export default class FavouriteTeachersComponent extends Component {
                                 id='navbarCollapse1'
                                 isOpen={this.state.collapseID}
                                 navbar
+                                
                             >
                                 <MDBNavbarNav >   {/* left */}
                                     <MDBNavLink to='#!' disabled className="collapsedHeader">
