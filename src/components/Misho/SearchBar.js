@@ -96,7 +96,7 @@ class AutoCompleteText extends React.Component {
             return null;
         }
         return (
-            <ul>
+            <ul className="mt-2 rounded mb-1">
                 {suggestions.map(item => <div key={item.id} className="d-flex p-1"><li className="mr-auto" onClick={() => this.suggestionSelected(item.name)}>{item.name}</li><Button variant="secondary " size="sm" onClick={() => this.handleFavouriteInput(item.id)}>{!this.getItemById(item.id).favourite ? "Add" : "Remove"}</Button></div>)}
             </ul>
         )
@@ -106,9 +106,10 @@ class AutoCompleteText extends React.Component {
         return (
             <div className="SearchBox">
                 <div className="SearchBoxText">
-                    <input value={this.state.text} onChange={this.handleTextInput} type="text" />
-                        {this.renderSuggestions()}
+                    <input value={this.state.text} onChange={this.handleTextInput} type="text" placeholder="Search..."  className="rounded mb-0"/>
+                    {this.renderSuggestions()}
                 </div>
+
             </div>
         )
     }
