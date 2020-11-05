@@ -20,10 +20,14 @@ export default class Map extends Component {
         const lenght = this.state.floor.length
         this.setState(
             state => {
-                state.index += 1
+                return{
+                index : state.index + 1
+                }
             }
-        )
-        if (this.state.index > lenght - 1) {
+        )  
+        console.log("index"+this.state.index) 
+        console.log("lenght"+lenght)   
+        if (this.state.index >= lenght - 1) {
             this.setState({
                 index: 0
             })
