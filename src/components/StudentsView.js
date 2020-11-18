@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import autoBind from "auto-bind";
 import '../styles/components/App.css';
 
@@ -16,9 +16,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 //connect to store
-import {connect} from "react-redux";
-import {getUserByIPcn, getUserPicture} from "../store/actions/user/userActions";
-import {getUserLocationByIPcn} from "../store/actions/location/locationActions";
+import { connect } from "react-redux";
+import { getCurrentUser, getUserPicture } from "../store/actions/user/userActions";
+import { getCurrentUserLocation } from "../store/actions/location/locationActions";
 
 class StudentsView extends Component {
 
@@ -58,20 +58,18 @@ class StudentsView extends Component {
     }
 
     componentDidMount() {
-        this.props.getUserLocationByIPcn('i428100');
         this.updateUserLocation();
         this.props.getUserPicture('i428100');
-        this.props.getUserByIPcn('i428100');
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.userAvatarData && prevState.user.profilePic !== this.props.userAvatarData.value){
+        if (this.props.userAvatarData && prevState.user.profilePic !== this.props.userAvatarData.value) {
             this.updateUserPicture();
         }
     }
 
     updateUserLocation = () => {
-        let {api} = this.state
+        let { api } = this.state
 
         let f = api.mapHierarchyFloor
         const floor = f.includes('>') && f.substr(f.lastIndexOf('>') + 1).split(' ')[0]
@@ -123,50 +121,50 @@ class StudentsView extends Component {
 
         //Change state
         this.setState(state => ({
-                floorIndex: index,
-                currentFloor: state.floors[index]
-            })
+            floorIndex: index,
+            currentFloor: state.floors[index]
+        })
         )
     }
 
     render() {
         return (
-            <div style={{padding: "20px", backgroundColor: "rgb(224,224,224)", height: "100vh"}}>
+            <div style={{ padding: "20px", backgroundColor: "rgb(224,224,224)", height: "100vh" }}>
 
-                <Row style={{height: "10%"}} className="mb-1">
+                <Row style={{ height: "10%" }} className="mb-1">
                     <Col>
                         <div className="float-left">
-                            <SearchBar/>
+                            <SearchBar />
                         </div>
                     </Col>
 
                     <Col>
                         <div className="float-right">
-                            <FavouriteTeachersComponent/>
+                            <FavouriteTeachersComponent />
                         </div>
                     </Col>
                 </Row>
 
-                <Row style={{height: "80%"}} className="mb-1">
+                <Row style={{ height: "80%" }} className="mb-1">
                     <Col>
                         {/*<div className="float-right" >*/}
                         {/*    <TeacherInfoComponent />*/}
                         {/*</div>*/}
                         <div className="map-container mb-1">
-                            <Map data={this.state}/>
+                            <Map data={this.state} />
                         </div>
                     </Col>
                 </Row>
 
-                <Row style={{height: "10%"}} className="mb-1">
+                <Row style={{ height: "10%" }} className="mb-1">
                     <Col>
                         <div className="float-left">
-                            <BackBtn/>
+                            <BackBtn />
                         </div>
                     </Col>
                     <Col>
                         <div className="float-right">
-                            <ZoomInOutBtns handleFloorChange={this.handleFloorChange}/>
+                            <ZoomInOutBtns handleFloorChange={this.handleFloorChange} />
                         </div>
                     </Col>
                 </Row>
@@ -185,8 +183,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getUserPicture: iPcn => dispatch(getUserPicture(iPcn)),
-        getUserLocationByIPcn: iPcn => dispatch(getUserLocationByIPcn(iPcn)),
-        getUserByIPcn: iPcn => dispatch(getUserByIPcn(iPcn))
+        getCurrentUserLocation: () => dispatch(getCurrentUserLocation()),
+        getCurrentUser: () => dispatch(getCurrentUser())
     }
 }
 
