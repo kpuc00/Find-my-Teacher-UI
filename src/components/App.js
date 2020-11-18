@@ -9,8 +9,6 @@ import TeachersView from './TeachersView';
 
 
 import '../styles/components/App.css';
-import TeacherInfoComponent from "./Vasil/TeacherInfoComponent";
-import FollowersInfoComponent from "./Alexander/FollowersInfoComponent";
 
 function App() {
     return (

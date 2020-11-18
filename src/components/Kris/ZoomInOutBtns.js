@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React  from 'react'
 import { Button } from 'react-bootstrap';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import '../../styles/components/Kris/ZoomInOutBtns.css';
