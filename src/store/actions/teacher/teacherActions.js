@@ -6,6 +6,8 @@ export const getAllTeachers = () => {
         axios.get(`https://api.fhict.nl/people/`, {headers: authHeader()})
             .then(res => {
                 dispatch({type: 'GET_ALL_TEACHERS', data: res.data})
+                //console.log(res.data)
+               //console.log(res.data.find(teacher=>teacher.id==="i872578"))
             })
     }
 }

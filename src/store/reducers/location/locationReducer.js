@@ -1,9 +1,10 @@
 const locationReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'GET_USER_LOCATION':
+        case 'GET_OWN_LOCATION':
+            console.log(action.data)
             return {
                 ...state,
-                userLocation: action.data
+                ownLocation: action.data
             }
         default:
             return state

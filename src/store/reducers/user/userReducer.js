@@ -3,7 +3,12 @@ const userReducer = (state = {}, action) => {
         case 'GET_USER_PICTURE':
             return {
                 ...state,
-                userAvatarData: action.data,
+                userAvatarData: action.data
+            }
+        case 'GET_USER':
+            return{
+                ...state,
+                user: action.data
             }
         default:
             return state
