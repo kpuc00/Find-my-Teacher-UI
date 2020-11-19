@@ -3,6 +3,7 @@ import '../styles/components/App.css';
 import ToggleLocationBtn from './Kris/ToggleLocationBtn';
 import FollowersInfoComponent from './Alexander/FollowersInfoComponent';
 
+
 function TeachersView() {
     return (
         <div className="App">
@@ -12,5 +13,4 @@ function TeachersView() {
         </div>
     );
 }
-
 export default TeachersView;

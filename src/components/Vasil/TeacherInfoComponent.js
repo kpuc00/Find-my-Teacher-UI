@@ -3,12 +3,17 @@ import '../../styles/components/Vasil/teacherInfoComponent.css';
 
 class TeacherInfoComponent extends Component {
 
-    state = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        room: '2.06',
-        componentIsOpen: false,
+    constructor(props){
+        super(props)
+        this.state = {
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            room: '2.06',
+            componentIsOpen: false,
+        }
+        this.toggleOpen = this.toggleOpen.bind(this)
     }
+   
 
     toggleOpen = () => {
         let state = this.state;
@@ -16,6 +21,10 @@ class TeacherInfoComponent extends Component {
         this.setState({
             ...state,
         })
+    }
+
+    componentDidMount(){
+        this.setState({componentIsOpen: this.props.componentIsOpen})
     }
 
     render() {
@@ -48,11 +57,12 @@ class TeacherInfoComponent extends Component {
             );
         } else {
             return (
-                <div className={"teacher-info"} onClick={this.toggleOpen}>
+               /*  <div className={"teacher-info"} onClick={this.toggleOpen}>
                     <div className={"button-open"}>
                         <span>Open Teacher's Information</span>
                     </div>
-                </div>
+                </div> */
+                <div></div>
             );
         }
     }

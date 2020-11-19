@@ -17,3 +17,6 @@
 .profilepic img {
     width: 100%;
 }
+.floor-map .teacherInfo{
+    position: absolute;
+}

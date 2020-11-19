@@ -1,13 +1,24 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import '../styles/components/map.css';
+
+
+import TeacherInfoComponent from "./Vasil/TeacherInfoComponent"
 
 class Map extends Component {
 
-    state = {
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            teacherInfoShows: false
+        }
+        this.openTeacherInfo = this.openTeacherInfo.bind(this)
     }
 
-    render(){
+    openTeacherInfo() {
+        this.setState({ teacherInfoShows: !this.state.teacherInfoShows })
+    }
+
+    render() {
         const data = this.props.data;
         return (
             <div>
@@ -18,9 +29,15 @@ class Map extends Component {
                     {
                         (data.currentFloor === data.user.currentLocation.floor) &&
                         <div className="profilepic" style={{ top: data.user.currentLocation.y, left: data.user.currentLocation.x }}>
-                            <img src={data.user.profilePic} alt="me" />
+                            <img src={data.user.profilePic} alt="me" onClick={this.openTeacherInfo} />
                         </div>
                     }
+                    <div className="teacherInfo" style={{ top: data.user.currentLocation.y - 100, left: data.user.currentLocation.x + 60 }}>
+                        {this.state.teacherInfoShows ?
+                            <TeacherInfoComponent componentIsOpen={true} /> :
+                            null
+                        }
+                    </div>
                 </div>
             </div>
         )
