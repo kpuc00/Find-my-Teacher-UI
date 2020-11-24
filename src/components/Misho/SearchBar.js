@@ -2,54 +2,46 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 
 import '../../styles/components/Misho/SearchBar.css';
+import {getCurrentUser, getUserPicture} from "../../store/actions/user/userActions";
+import {getCurrentUserLocation} from "../../store/actions/location/locationActions";
+import {getAllTeachers} from "../../store/actions/teacher/teacherActions";
+import {connect, useSelector} from "react-redux";
 
 class AutoCompleteText extends React.Component {
-    constructor(porps) {
-        super(porps)
+    constructor(props) {
+        super(props)
 
         this.state = {
-            items: [
-                {
-                    id: 1,
-                    name: "david",
-                    favourite: false
-                },
-                {
-                    id: 2,
-                    name: "nick",
-                    favourite: true
-                },
-                {
-                    id: 3,
-                    name: "peter",
-                    favourite: false
-                },
-                {
-                    id: 4,
-                    name: "damien",
-                    favourite: false
-                },
-                {
-                    id: 5,
-                    name: "deter",
-                    favourite: false
-                },
-            ],
+            items: [],
             suggestions: [],
             text: ""
         }
     }
 
+    componentDidMount() {
+        this.updateTeachers()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.teachers && prevState.items !== this.props.teachers) {
+            this.updateTeachers()
+        }
+    }
+
+    updateTeachers = () => {
+        this.setState({items: this.props.teachers})
+    }
+
     getItemById(id) {
-        for(let i=0; i<this.state.items.length; i++) {
-            if(this.state.items[i].id === id) {
-                return this.state.items[i]
+        for(let i=0; i<this.state.items.teachers.length; i++) {
+            if(this.state.items.teachers[i].id === id) {
+                return this.state.items.teachers[i]
             }
         }
     }
 
     handleFavouriteInput(id) {
-        let newItems = [...this.state.items]
+        let newItems = [...this.state.items.teachers]
         
         for(let i = 0; i < newItems.length; i++) {
             if (newItems[i].id === id) {
@@ -65,7 +57,6 @@ class AutoCompleteText extends React.Component {
         this.setState(state => ({
                 items: newItems
         }))
-        console.log(id)
     } 
 
     handleTextInput = (event) => {
@@ -75,7 +66,7 @@ class AutoCompleteText extends React.Component {
 
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, 'i')
-            suggestions = this.state.items.sort().filter(v => regex.test(v.name))
+            suggestions = this.state.items.teachers.sort().filter(v => regex.test(v.displayName))
         }
 
         this.setState(() => ({suggestions, text: value}))
@@ -83,7 +74,7 @@ class AutoCompleteText extends React.Component {
 
     suggestionSelected(value) {
         this.setState(() => ({
-                text: value,
+                text: value.displayName,
                 suggestions: []
             })
         )
@@ -97,7 +88,7 @@ class AutoCompleteText extends React.Component {
         }
         return (
             <ul className="mt-2 rounded mb-1">
-                {suggestions.map(item => <div key={item.id} className="d-flex p-1"><li className="mr-auto" onClick={() => this.suggestionSelected(item.name)}>{item.name}</li><Button variant="secondary " size="sm" onClick={() => this.handleFavouriteInput(item.id)}>{!this.getItemById(item.id).favourite ? "Add" : "Remove"}</Button></div>)}
+                {suggestions.map(item => <div key={item.id} className="d-flex p-1"><li className="mr-auto" onClick={() => this.suggestionSelected(item)}>{item.displayName}</li><Button variant="secondary " size="sm" onClick={() => this.handleFavouriteInput(item.id)}>{!this.getItemById(item.id).favourite ? "Add" : "Remove"}</Button></div>)}
             </ul>
         )
     }
@@ -116,4 +107,16 @@ class AutoCompleteText extends React.Component {
 
 }
 
-export default AutoCompleteText
+const mapStateToProps = (state) => {
+    return {
+        teachers: state.teacher
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAllTeachers: () => dispatch(getAllTeachers())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AutoCompleteText)

@@ -19,6 +19,11 @@ export default class FavouriteTeachersComponent extends Component {
         collapseID: ''        
     };
 
+
+    getFavouriteTeachers = () => {
+
+    }
+
     toggleCollapse = collapseID => () => {
         this.setState(prevState => ({
             collapseID: prevState.collapseID !== collapseID ? collapseID : ''

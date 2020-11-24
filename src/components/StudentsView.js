@@ -19,6 +19,11 @@ import Col from 'react-bootstrap/Col'
 import { connect } from "react-redux";
 import { getCurrentUser, getUserPicture } from "../store/actions/user/userActions";
 import { getCurrentUserLocation } from "../store/actions/location/locationActions";
+import authHeader from "../services/auth-header";
+
+
+import axios from "axios"
+
 
 class StudentsView extends Component {
 
@@ -29,76 +34,83 @@ class StudentsView extends Component {
             floors: ["BG", "1e", "2e", "3e", "4e"],
             currentFloor: "BG",
             floorIndex: 0,
-            user: {
-                currentLocation: {
-                    floor: "",
-                    x: 0,
-                    y: 0
-                },
-                profilePic: null
-            },
-            api: {
-                mapHierarchyFloor: "EHV>R10>2e",
-                mapCoordinate: {
-                    x: 151.844238,
-                    y: 55.4845145
-                },
-                image: {
-                    width: 2232,
-                    height: 748
-                },
-                floorDimension: {
-                    length: 108.27,
-                    width: 331.36,
-                }
-            }
+
+            user: {},
+            api: {}
+
         }
+
 
         autoBind(this)
     }
 
     componentDidMount() {
-        this.updateUserLocation();
-        this.props.getUserPicture('i428100');
+        //this.updateUserLocation();
+        this.props.getCurrentUser();
+        this.props.getCurrentUserLocation();
+        //this.props.getUserPicture(this.state.user.id);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.userAvatarData && prevState.user.profilePic !== this.props.userAvatarData.value) {
-            this.updateUserPicture();
+
+        if (Object.keys(this.props.user).length > 0 && prevState.user.info !== this.props.user) {
+            this.updateUserInfo();
+        }
+
+        if (Object.keys(this.props.locationCurrent).length > 0 && prevState.api !== this.props.locationCurrent) {
+            this.updateApi()
         }
     }
 
-    updateUserLocation = () => {
-        let { api } = this.state
 
-        let f = api.mapHierarchyFloor
-        const floor = f.includes('>') && f.substr(f.lastIndexOf('>') + 1).split(' ')[0]
-
-        let kWidth = api.image.width / api.floorDimension.width
-        let kHeight = api.image.height / api.floorDimension.length
-        let width = kWidth * api.mapCoordinate.x
-        let height = kHeight * api.mapCoordinate.y
-
+    updateUserInfo = () => {
         this.setState({
             user: {
-                ...this.state.user,
-                currentLocation: {
-                    floor: floor,
-                    x: width,
-                    y: height
-                }
-            },
-            currentFloor: floor
+                ...this.state.user, //this is the component state
+                info: this.props.user //this is the props object (global data)
+            }
         })
     }
 
-    updateUserPicture = () => {
+    updateApi = () => {
+
+        const { locationCurrent } = this.props //destructure data
+
+        const floor = locationCurrent.mapHierarchyFloor.split(">")
+
+        //init all data
+        const { image } = locationCurrent
+        const { floorDimension } = locationCurrent
+        const { mapCoordinate } = locationCurrent
+
+        const kWidth = image.width / floorDimension.width
+        const kHeight = image.height / floorDimension.length
+        const width = kWidth * mapCoordinate.x
+        const height = kHeight * mapCoordinate.y
+
         this.setState({
+            ...this.state,
+            currentFloor: floor[floor.length - 1],
             user: {
                 ...this.state.user,
-                profilePic: this.props.userAvatarData.value
-            }
+                location: {
+                    floor: floor[floor.length - 1],
+                    x: width,
+                    y: height,
+                }
+            },
+            api: locationCurrent
+
         })
+
+        // ...this.state.api,
+        //     mapCoordinate: mapCoordinate,
+        //     floorDimension: floorDimension,
+        //     image: {
+        // ...image,
+        //         width: width,
+        //         height: height
+        // }
     }
 
     handleFloorChange(action) {
@@ -125,9 +137,10 @@ class StudentsView extends Component {
             currentFloor: state.floors[index]
         })
         )
-    }
+    };
 
     render() {
+        console.log(this.state)
         return (
             <div style={{ padding: "20px", backgroundColor: "rgb(224,224,224)", height: "100vh" }}>
 
@@ -151,7 +164,9 @@ class StudentsView extends Component {
                         {/*    <TeacherInfoComponent />*/}
                         {/*</div>*/}
                         <div className="map-container mb-1">
-                            <Map data={this.state} />
+                            {Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0 ?
+                                <Map data={this.state} /> : "Loading..."
+                            }
                         </div>
                     </Col>
                 </Row>
@@ -168,7 +183,6 @@ class StudentsView extends Component {
                         </div>
                     </Col>
                 </Row>
-
             </div>
         )
     }
@@ -176,15 +190,15 @@ class StudentsView extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAvatarData: state.user.userAvatarData
+        user: state.user,
+        locationCurrent: state.location
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserPicture: iPcn => dispatch(getUserPicture(iPcn)),
-        getCurrentUserLocation: () => dispatch(getCurrentUserLocation()),
-        getCurrentUser: () => dispatch(getCurrentUser())
+        getCurrentUser: () => dispatch(getCurrentUser()),
+        getCurrentUserLocation: () => dispatch(getCurrentUserLocation())
     }
 }
 
