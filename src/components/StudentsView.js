@@ -23,6 +23,7 @@ import authHeader from "../services/auth-header";
 
 
 import axios from "axios"
+import {Container, Jumbotron} from "react-bootstrap";
 
 
 class StudentsView extends Component {
@@ -35,7 +36,10 @@ class StudentsView extends Component {
             currentFloor: "BG",
             floorIndex: 0,
 
-            user: {},
+            user: {
+                info: {},
+                location: {}
+            },
             api: {}
 
         }
@@ -48,7 +52,6 @@ class StudentsView extends Component {
         //this.updateUserLocation();
         this.props.getCurrentUser();
         this.props.getCurrentUserLocation();
-        //this.props.getUserPicture(this.state.user.id);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -140,23 +143,18 @@ class StudentsView extends Component {
     };
 
     render() {
-        console.log(this.state)
         return (
-            <div style={{ padding: "20px", backgroundColor: "rgb(224,224,224)", height: "100vh" }}>
+            <div className="p-3" style={{backgroundColor: "rgb(220,220,220)"}}>
 
-                <Row style={{ height: "10%" }} className="mb-1">
-                    <Col>
-                        <div className="float-left">
-                            <SearchBar />
-                        </div>
-                    </Col>
+                <div className="row mb-5">
+                    <div className="col-lg-6">
+                        {Object.keys(this.state.user.info).length > 0 && <SearchBar iPcn={this.state.user.info.id}/>}
+                    </div>
 
-                    <Col>
-                        <div className="float-right">
-                            <FavouriteTeachersComponent />
-                        </div>
-                    </Col>
-                </Row>
+                    <div className="col-lg-6">
+                        {Object.keys(this.state.user.info).length > 0 && <FavouriteTeachersComponent iPcn={this.state.user.info.id}/>}
+                    </div>
+                </div>
 
                 <Row style={{ height: "80%" }} className="mb-1">
                     <Col>
@@ -165,7 +163,7 @@ class StudentsView extends Component {
                         {/*</div>*/}
                         <div className="map-container mb-1">
                             {Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0 ?
-                                <Map data={this.state} /> : "Loading..."
+                                <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/> : "Loading..."
                             }
                         </div>
                     </Col>

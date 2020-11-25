@@ -1,10 +1,7 @@
-const teacherReducer = (state = {}, action) => {
+const teacherReducer = (state = [], action) => {
     switch (action.type) {
         case 'GET_ALL_TEACHERS':
-            return {
-                ...state,
-                teachers: action.data
-            }
+            return action.data
         default:
             return state
     }
