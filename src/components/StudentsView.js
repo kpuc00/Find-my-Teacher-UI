@@ -169,28 +169,21 @@ class StudentsView extends Component {
                         {Object.keys(this.state.user.info).length > 0  && <FavouriteTeachersComponent iPcn={this.state.user.info.id}/>}
                     </div>
                 </div>
-
-<<<<<<< HEAD
-                <div className="row my-3">
-                    {Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0 ?
-                        <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/> : "Loading..."
-                    }
-=======
-                <div className="my-3">
-                    <div className="row">
-                        <div className="col">
-                            {(Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0) && <ToggleLocationBtn data={this.state}/>}
+                {(Object.keys(this.state.user.info).length > 0 && Object.keys(this.state.api).length > 0) ?
+                    <div className="my-3">
+                        <div className="row">
+                            <div className="col">
+                                <ToggleLocationBtn data={this.state}/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row ">
-                        <div className="col">
-                            {Object.keys(this.state.user.info).length > 0 && Object.keys(this.state.api).length > 0 ?
-                                <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/> : "Loading..."
-                            }
+                        <div className="row ">
+                            <div className="col">
+                                <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/>
+                            </div>
                         </div>
-                    </div>
->>>>>>> develop
-                </div>
+                    </div> :
+                    "Loading..."
+                }
 
                 <div className="row">
                     <div className="col">

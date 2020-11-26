@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import InfoComponent from "./Vasil/InfoComponent";
+import "../styles/components/map.css"
 
 
 const MapObject = ({person, currentFloor}) => {

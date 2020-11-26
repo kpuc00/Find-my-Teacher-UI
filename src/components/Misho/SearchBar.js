@@ -57,7 +57,6 @@ class AutoCompleteText extends React.Component {
     // }
 
     handleFavouriteInput(id) {
-        console.log("search fav")
         let newFavourites  = [...this.state.favourites]
 
         if (newFavourites.includes(id)) {

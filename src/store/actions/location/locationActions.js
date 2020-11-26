@@ -20,19 +20,12 @@ export const getCurrentUserLocation = () => {
     }
 }
 
-<<<<<<< HEAD
-export const getTeacherLocationByiPcn = (iPcn) => {
-    return (dispatch) => {
-        axios.get(`/teacher/${iPcn}/location`)
-            .then(response => {
 
-=======
 export const getTeacherLocation = (iPcn) => {
     return (dispatch) => {
         axios.get(`/teacher/${iPcn}/location`)
             .then(response => {
                 dispatch({type: 'GET_TEACHER_LOCATION', data: response.data})
->>>>>>> develop
             })
     }
 }
