@@ -16,8 +16,10 @@ class ToggleLocationBtn extends Component {
     }
 
     ToggleGPS = () => {
-        const { user } = this.props.data
-        const { api } = this.props.data
+        const { user } = this.props
+        const { api } = this.props
+
+        console.log("still works")
 
         const teacher = {
             iPcn: user.info.id,

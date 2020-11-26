@@ -157,19 +157,10 @@ class StudentsView extends Component {
                     </div>
                 </div>
 
-                <div className="my-3">
-                    <div className="row">
-                        <div className="col">
-                            {(Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0) && <ToggleLocationBtn data={this.state}/>}
-                        </div>
-                    </div>
-                    <div className="row ">
-                        <div className="col">
-                            {Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0 ?
-                                <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/> : "Loading..."
-                            }
-                        </div>
-                    </div>
+                <div className="row my-3">
+                    {Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0 ?
+                        <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/> : "Loading..."
+                    }
                 </div>
 
                 <div className="row">

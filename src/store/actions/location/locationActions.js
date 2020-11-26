@@ -20,14 +20,14 @@ export const getCurrentUserLocation = () => {
     }
 }
 
-// export const getTeacherLocation = (iPcn) => {
-//     return (dispatch) => {
-//         axios.get(`/teacher/${iPcn}/location`)
-//             .then(response => {
-//
-//             })
-//     }
-// }
+export const getTeacherLocationByiPcn = (iPcn) => {
+    return (dispatch) => {
+        axios.get(`/teacher/${iPcn}/location`)
+            .then(response => {
+
+            })
+    }
+}
 
 export const postLocationToApi = () => {
     return (dispatch) => {
