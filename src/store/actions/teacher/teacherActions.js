@@ -11,11 +11,17 @@ export const getAllTeachers = () => {
 }
 
 export const putTeacherLocation = (teacher) => {
-    return (dispatch) => {
-        axios.put(`/teacher/edit/location`, teacher)
-            .then(response =>
-                dispatch({type: "", data: response.data})
-            )
+    axios.put(`/teacher/edit/location`, teacher)
+}
+
+export const getTeacherByiPcn = (iPcn) => {
+    return (dispatch, getState) => {
+        const allTeachers = getState().teacher.teachers
+
+        const teacher = allTeachers.find(teacher => teacher.id === iPcn)
+
+        dispatch({type: 'GET_SELECTED_TEACHER', data: teacher})
+
     }
 }
 

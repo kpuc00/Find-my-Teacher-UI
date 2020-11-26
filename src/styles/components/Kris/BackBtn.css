@@ -1,6 +1,8 @@
 .BackBtnContainer{
-    position: relative;
+    position: fixed;
     z-index: 2;
+    left: 3vw;
+    bottom: 5vh
 }
 
 .BackBtnContainer .BackBtn{

@@ -1,0 +1,8 @@
+
+.is-favourite:hover {
+    cursor: pointer;
+}
+
+.not-favourite:hover {
+    cursor: pointer;
+}

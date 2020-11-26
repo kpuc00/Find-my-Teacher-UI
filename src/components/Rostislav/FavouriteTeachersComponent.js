@@ -6,8 +6,9 @@ import {editFavouriteTeachersIpcn, getFavouriteTeachersIpcn} from "../../store/a
 
 import {connect} from "react-redux";
 import autoBind from "auto-bind";
-import {getAllTeachers} from "../../store/actions/teacher/teacherActions";
+import {getAllTeachers, getTeacherByiPcn} from "../../store/actions/teacher/teacherActions";
 import {BsStar, BsStarFill} from "react-icons/all";
+import {getTeacherLocation} from "../../store/actions/location/locationActions";
 
 class FavouriteTeachersComponent extends Component{
 
@@ -73,11 +74,16 @@ class FavouriteTeachersComponent extends Component{
 
     }
 
+    getLocation = (teacher) => {
+        this.props.getTeacherLocation("i428100")
+        this.props.getTeacherByiPcn(teacher.id)
+    }
+
     render() {
 
         const favouritesItem = this.state.teachers.map((teacher, index) => {
             if (this.state.favourites.includes(teacher.id)) {
-                return (<Dropdown.Item key={index} className="d-flex align-items-center p-1" onClick={() => console.log("get location")}><div className="mr-auto">{teacher.displayName}</div><div onClick={() => this.handleFavouriteInput(teacher.id)}><BsStarFill size="1.5em"/> </div></Dropdown.Item>)
+                return (<Dropdown.Item key={index} className="d-flex align-items-center p-1" onClick={() => this.getLocation(teacher)}><div className="mr-auto">{teacher.displayName}</div><div onClick={() => this.handleFavouriteInput(teacher.id)}><BsStarFill size="1.5em"/> </div></Dropdown.Item>)
             }
         })
 
@@ -98,7 +104,7 @@ class FavouriteTeachersComponent extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        teachers: state.teacher,
+        teachers: state.teacher.teachers,
         favourites: state.favourites
     }
 }
@@ -107,7 +113,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getAllTeachers: () => dispatch(getAllTeachers()),
         getFavouriteTeachersIpcn: iPcn => dispatch(getFavouriteTeachersIpcn(iPcn)),
-        editFavouriteTeachersIpcn: student => dispatch(editFavouriteTeachersIpcn(student))
+        editFavouriteTeachersIpcn: student => dispatch(editFavouriteTeachersIpcn(student)),
+        getTeacherLocation: iPcn => dispatch(getTeacherLocation(iPcn)),
+        getTeacherByiPcn: iPcn => dispatch(getTeacherByiPcn(iPcn))
     }
 }
 
