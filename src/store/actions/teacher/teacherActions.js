@@ -5,9 +5,17 @@ export const getAllTeachers = () => {
     return (dispatch) => {
         axios.get(`https://api.fhict.nl/people/`, {headers: authHeader()})
             .then(res => {
-                dispatch({type: 'GET_ALL_TEACHERS', data: res.data})
-                //console.log(res.data)
-               //console.log(res.data.find(teacher=>teacher.id==="i872578"))
+                dispatch({type: "GET_ALL_TEACHERS", data: res.data})
             })
     }
 }
+
+export const putTeacherLocation = (teacher) => {
+    return (dispatch) => {
+        axios.put(`/teacher/edit/location`, teacher)
+            .then(response =>
+                dispatch({type: "", data: response.data})
+            )
+    }
+}
+

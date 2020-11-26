@@ -12,8 +12,12 @@
     overflow: hidden;
     border-radius: 50%;
     border-style: dashed;
+    border-color: rgb(102, 51, 102);
 }
 
 .profilepic img {
     width: 100%;
+}
+.floor-map .teacherInfo{
+    position: absolute;
 }

@@ -6,19 +6,28 @@ export const getCurrentUserLocation = () => {
         //send get request to fontys api to get the location
         axios.get(`https://api.fhict.nl/location/current`, {headers: authHeader()})
             .then(res => {
-                const data = res.data;
+                const data = res.data[0];
 
-                const location = {
+                const locationCurrent = {
                     mapHierarchyFloor: data.mapInfo.mapHierarchyFloor,
                     mapCoordinate: data.mapCoordinate,
                     image: data.mapInfo.image,
                     floorDimension: data.mapInfo.floorDimension
                 }
 
-                dispatch({type: 'GET_USER_LOCATION', data: location})
+                dispatch({type: 'GET_USER_LOCATION', data: locationCurrent})
             })
     }
 }
+
+// export const getTeacherLocation = (iPcn) => {
+//     return (dispatch) => {
+//         axios.get(`/teacher/${iPcn}/location`)
+//             .then(response => {
+//
+//             })
+//     }
+// }
 
 export const postLocationToApi = () => {
     return (dispatch) => {

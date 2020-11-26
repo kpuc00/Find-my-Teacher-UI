@@ -6,6 +6,9 @@ import FavouriteTeachersComponent from "./Rostislav/FavouriteTeachersComponent"
 
 import SearchBar from "./Misho/SearchBar"
 
+import ZoomInOutBtns from './Kris/ZoomInOutBtns';
+import BackBtn from './Kris/BackBtn';
+
 import Map from './Map';
 
 //Bootstrap
@@ -15,71 +18,172 @@ import Col from 'react-bootstrap/Col'
 //connect to store
 import { connect } from "react-redux";
 import { getCurrentUser, getUserPicture } from "../store/actions/user/userActions";
-import { getAllTeachers } from "../store/actions/teacher/teacherActions";
+import { getCurrentUserLocation } from "../store/actions/location/locationActions";
+import authHeader from "../services/auth-header";
+
+
+import axios from "axios"
+import {Container, Jumbotron} from "react-bootstrap";
+import ToggleLocationBtn from "./Kris/ToggleLocationBtn";
+
 
 class StudentsView extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
+            building: "R10",
+            floors: ["BG", "1e", "2e", "3e", "4e"],
+            currentFloor: "BG",
+            floorIndex: 0,
+
             user: {
-                profilePic: ""
-            }
+                info: {},
+                location: {}
+            },
+            api: {}
+
         }
+
 
         autoBind(this)
     }
 
     componentDidMount() {
-        this.props.getUserPicture('i428100');
-        this.props.getAllTeachers();
         this.props.getCurrentUser();
+        this.props.getCurrentUserLocation();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.userAvatarData && prevState.user.profilePic !== this.props.userAvatarData.value) {
-            this.updateUserPicture();
+
+        if (Object.keys(this.props.user).length > 0 && prevState.user.info !== this.props.user) {
+            this.updateUserInfo();
+        }
+
+        if (Object.keys(this.props.locationCurrent).length > 0 && prevState.api !== this.props.locationCurrent) {
+            this.updateApi()
         }
     }
 
-    updateUserPicture = () => {
+
+    updateUserInfo = () => {
         this.setState({
             user: {
-                ...this.state.user,
-                profilePic: this.props.userAvatarData.value
+                ...this.state.user, //this is the component state
+                info: this.props.user //this is the props object (global data)
             }
         })
     }
 
+    updateApi = () => {
+
+        const { locationCurrent } = this.props //destructure data
+
+        const floor = locationCurrent.mapHierarchyFloor.split(">")
+
+        //init all data
+        const { image } = locationCurrent
+        const { floorDimension } = locationCurrent
+        const { mapCoordinate } = locationCurrent
+
+        const kWidth = image.width / floorDimension.width
+        const kHeight = image.height / floorDimension.length
+        const width = kWidth * mapCoordinate.x
+        const height = kHeight * mapCoordinate.y
+
+        this.setState({
+            ...this.state,
+            building: floor[floor.length - 2],
+            currentFloor: floor[floor.length - 1],
+            user: {
+                ...this.state.user,
+                location: {
+                    floor: floor[floor.length - 1],
+                    x: width,
+                    y: height,
+                }
+            },
+            api: locationCurrent
+
+        })
+
+        // ...this.state.api,
+        //     mapCoordinate: mapCoordinate,
+        //     floorDimension: floorDimension,
+        //     image: {
+        // ...image,
+        //         width: width,
+        //         height: height
+        // }
+    }
+
+    handleFloorChange(action) {
+        const length = this.state.floors.length //Length of floor array
+        let index = this.state.floorIndex //Current floor
+
+        //Change floor
+        if (action === 1)
+            index++
+        if (action === -1)
+            index--
+
+        //Check not to go out of bound
+        if (index > length - 1) {
+            index = 0
+        }
+        if (index < 0) {
+            index = length - 1
+        }
+
+        //Change state
+        this.setState(state => ({
+            floorIndex: index,
+            currentFloor: state.floors[index]
+        })
+        )
+    };
+
     render() {
         return (
-            <div style={{ padding: "20px", backgroundColor: "rgb(224,224,224)", height: "100vh" }}>
+            <div className="p-3" style={{backgroundColor: "rgb(220,220,220)"}}>
 
-                <Row style={{ height: "10%" }} className="mb-1">
-                    <Col>
+                <div className="row">
+                    <div className="col-lg-6">
+                        {Object.keys(this.state.user.info).length > 0 && <SearchBar iPcn={this.state.user.info.id}/>}
+                    </div>
+
+                    <div className="col-lg-6">
+                        {Object.keys(this.state.user.info).length > 0 && <FavouriteTeachersComponent iPcn={this.state.user.info.id}/>}
+                    </div>
+                </div>
+
+                <div className="my-3">
+                    <div className="row">
+                        <div className="col">
+                            {(Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0) && <ToggleLocationBtn data={this.state}/>}
+                        </div>
+                    </div>
+                    <div className="row ">
+                        <div className="col">
+                            {Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0 ?
+                                <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/> : "Loading..."
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col">
                         <div className="float-left">
-                            <SearchBar />
+                            <BackBtn />
                         </div>
-                    </Col>
-
-                    <Col>
+                    </div>
+                    <div className="col">
                         <div className="float-right">
-                            <FavouriteTeachersComponent />
+                            <ZoomInOutBtns handleFloorChange={this.handleFloorChange} />
                         </div>
-                    </Col>
-                </Row>
-
-                <Row style={{ height: "80%" }} className="mb-1">
-                    <Col>
-                        {/*<div className="float-right" >*/}
-                        {/*    <TeacherInfoComponent />*/}
-                        {/*</div>*/}
-                        <div className="map-container mb-1">
-                            <Map userPic={this.state.user.profilePic} />
-                        </div>
-                    </Col>
-                </Row>
-
+                    </div>
+                </div>
             </div>
         )
     }
@@ -87,15 +191,15 @@ class StudentsView extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userAvatarData: state.user.userAvatarData
+        user: state.user,
+        locationCurrent: state.location
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserPicture: iPcn => dispatch(getUserPicture(iPcn)),
         getCurrentUser: () => dispatch(getCurrentUser()),
-        getAllTeachers: () => dispatch(getAllTeachers())
+        getCurrentUserLocation: () => dispatch(getCurrentUserLocation())
     }
 }
 

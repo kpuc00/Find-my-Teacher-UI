@@ -1,12 +1,13 @@
 .teacher-info .container {
-    max-width: 300px;
-    border: 2px solid rgb(101, 52, 101);
+    max-width: max-content;
+    border: 2px solid rgb(102, 51, 102);
     border-radius: 5px;
     margin: 10px;
+    background-color: white;
 }
 
 .teacher-info .header {
-    background-color: rgb(101, 52, 101);
+    background-color: rgb(102, 51, 102);
     color: white;
     font-family: "RobotoRegular", Arial, sans-serif;
     font-size: 1.2rem;
@@ -14,15 +15,15 @@
     text-align: center;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .teacher-info .button-open {
     max-width: 280px;
-    background-color: rgb(101, 52, 101);
+    background-color: rgb(102, 51, 102);
     color: white;
     border-radius: 5px;
-    border: 2px solid rgb(101, 52, 101);
+    border: 2px solid rgb(102, 51, 102);
     margin: 10px;
     padding: 10px;
     font-family: "RobotoRegular", Arial, sans-serif;
@@ -36,7 +37,7 @@
     height: 23px;
     width: 23px;
     background-color: white;
-    color: rgb(101, 52, 101);
+    color: rgb(102, 51, 102);
     border-radius: 50%;
     display: inline-block;
     cursor: pointer;
@@ -47,7 +48,7 @@
 }
 
 .teacher-info .row {
-    border-bottom: 1px solid rgb(101, 52, 101);
+    border-bottom: 1px solid rgb(102, 51, 102);
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;

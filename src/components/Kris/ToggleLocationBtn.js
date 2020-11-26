@@ -3,11 +3,32 @@ import { ToggleButton } from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { FaLocationArrow } from 'react-icons/fa';
 import '../../styles/components/Kris/ToggleLocationBtn.css';
+import {getCurrentUser} from "../../store/actions/user/userActions";
+import {getCurrentUserLocation} from "../../store/actions/location/locationActions";
+import {putTeacherLocation} from "../../store/actions/teacher/teacherActions";
+import {connect} from "react-redux";
+import autoBind from "auto-bind";
 
 class ToggleLocationBtn extends Component {
 
-    ToggleGPS() {
-        console.log("toggle gps.")
+    constructor(props) {
+        super(props);
+    }
+
+    ToggleGPS = () => {
+        const { user } = this.props.data
+        const { api } = this.props.data
+
+        const teacher = {
+            iPcn: user.info.id,
+            coordinates: {
+                x: api.mapCoordinate.x,
+                y: api.mapCoordinate.y,
+                mapHierarchyFloor: api.mapHierarchyFloor
+            }
+        }
+
+        this.props.putTeacherLocation(teacher)
     }
 
     render() {
@@ -28,4 +49,10 @@ class ToggleLocationBtn extends Component {
     }
 }
 
-export default ToggleLocationBtn;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        putTeacherLocation: teacher => dispatch(putTeacherLocation(teacher))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ToggleLocationBtn);
