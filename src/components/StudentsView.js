@@ -24,6 +24,7 @@ import authHeader from "../services/auth-header";
 
 import axios from "axios"
 import {Container, Jumbotron} from "react-bootstrap";
+import ToggleLocationBtn from "./Kris/ToggleLocationBtn";
 
 
 class StudentsView extends Component {
@@ -49,7 +50,6 @@ class StudentsView extends Component {
     }
 
     componentDidMount() {
-        //this.updateUserLocation();
         this.props.getCurrentUser();
         this.props.getCurrentUserLocation();
     }
@@ -93,6 +93,7 @@ class StudentsView extends Component {
 
         this.setState({
             ...this.state,
+            building: floor[floor.length - 2],
             currentFloor: floor[floor.length - 1],
             user: {
                 ...this.state.user,
@@ -146,7 +147,7 @@ class StudentsView extends Component {
         return (
             <div className="p-3" style={{backgroundColor: "rgb(220,220,220)"}}>
 
-                <div className="row mb-5">
+                <div className="row">
                     <div className="col-lg-6">
                         {Object.keys(this.state.user.info).length > 0 && <SearchBar iPcn={this.state.user.info.id}/>}
                     </div>
@@ -156,31 +157,33 @@ class StudentsView extends Component {
                     </div>
                 </div>
 
-                <Row style={{ height: "80%" }} className="mb-1">
-                    <Col>
-                        {/*<div className="float-right" >*/}
-                        {/*    <TeacherInfoComponent />*/}
-                        {/*</div>*/}
-                        <div className="map-container mb-1">
+                <div className="my-3">
+                    <div className="row">
+                        <div className="col">
+                            {(Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0) && <ToggleLocationBtn data={this.state}/>}
+                        </div>
+                    </div>
+                    <div className="row ">
+                        <div className="col">
                             {Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0 ?
                                 <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/> : "Loading..."
                             }
                         </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
 
-                <Row style={{ height: "10%" }} className="mb-1">
-                    <Col>
+                <div className="row">
+                    <div className="col">
                         <div className="float-left">
                             <BackBtn />
                         </div>
-                    </Col>
-                    <Col>
+                    </div>
+                    <div className="col">
                         <div className="float-right">
                             <ZoomInOutBtns handleFloorChange={this.handleFloorChange} />
                         </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
         )
     }

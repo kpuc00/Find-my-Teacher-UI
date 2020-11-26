@@ -74,7 +74,8 @@ class FavouriteTeachersComponent extends Component{
     }
 
     render() {
-        const favourites = this.state.teachers.map((teacher, index) => {
+
+        const favouritesItem = this.state.teachers.map((teacher, index) => {
             if (this.state.favourites.includes(teacher.id)) {
                 return (<Dropdown.Item key={index} className="d-flex align-items-center p-1" onClick={() => console.log("get location")}><div className="mr-auto">{teacher.displayName}</div><div onClick={() => this.handleFavouriteInput(teacher.id)}><BsStarFill size="1.5em"/> </div></Dropdown.Item>)
             }
@@ -87,7 +88,7 @@ class FavouriteTeachersComponent extends Component{
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    {favourites}
+                    {favouritesItem}
                 </Dropdown.Menu>
             </Dropdown>
         )

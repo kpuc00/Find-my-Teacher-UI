@@ -9,3 +9,13 @@ export const getAllTeachers = () => {
             })
     }
 }
+
+export const putTeacherLocation = (teacher) => {
+    return (dispatch) => {
+        axios.put(`/teacher/edit/location`, teacher)
+            .then(response =>
+                dispatch({type: "", data: response.data})
+            )
+    }
+}
+

@@ -3,7 +3,7 @@ import {getAllTeachers, getAllTeachersFromState} from "../teacher/teacherActions
 
 export const getFavouriteTeachersIpcn = (iPcn) => {
     return (dispatch) => {
-        axios.get(`http://localhost:8080/student/${iPcn}/favourites`)
+        axios.get(`/student/${iPcn}/favourites`)
             .then(response => {
                 dispatch({type: 'GET_FAVOURITE_TEACHERS_IPCN', data: response.data.favourites})
             })
@@ -12,7 +12,7 @@ export const getFavouriteTeachersIpcn = (iPcn) => {
 
 export const editFavouriteTeachersIpcn = (student) => {
     return (dispatch) => {
-        axios.put(`http://localhost:8080/student/edit/favourites`, student)
+        axios.put(`/student/edit/favourites`, student)
             .then(() => dispatch(getFavouriteTeachersIpcn(student.iPcn)))
     }
 }

@@ -94,9 +94,12 @@ class AutoCompleteText extends React.Component {
         this.setState(() => ({suggestions, text: value}))
     }
 
-    suggestionSelected(value) {
+    suggestionSelected(teacher) {
+
+        console.log("get location")
+
         this.setState(() => ({
-                text: value.displayName,
+                text: teacher.displayName,
                 suggestions: []
             })
         )
@@ -114,6 +117,8 @@ class AutoCompleteText extends React.Component {
             </ul>
         )
     }
+
+
 
     render() {
         return (
