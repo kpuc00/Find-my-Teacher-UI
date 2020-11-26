@@ -25,6 +25,7 @@ import authHeader from "../services/auth-header";
 import axios from "axios"
 import {Container, Jumbotron} from "react-bootstrap";
 import ToggleLocationBtn from "./Kris/ToggleLocationBtn";
+import { CalcPosition } from "../services/CalcPosition";
 
 
 class StudentsView extends Component {
@@ -60,7 +61,7 @@ class StudentsView extends Component {
             this.updateUserInfo();
         }
 
-        if (Object.keys(this.props.locationCurrent).length > 0 && prevState.api !== this.props.locationCurrent) {
+        if (this.props.locationCurrent && prevState.api !== this.props.locationCurrent) {
             this.updateApi()
         }
     }
@@ -76,31 +77,43 @@ class StudentsView extends Component {
     }
 
     updateApi = () => {
-
         const { locationCurrent } = this.props //destructure data
 
-        const floor = locationCurrent.mapHierarchyFloor.split(">")
-
-        //init all data
         const { image } = locationCurrent
         const { floorDimension } = locationCurrent
         const { mapCoordinate } = locationCurrent
 
-        const kWidth = image.width / floorDimension.width
-        const kHeight = image.height / floorDimension.length
-        const width = kWidth * mapCoordinate.x
-        const height = kHeight * mapCoordinate.y
+        const location = {
+            mapHierarchyFloor: locationCurrent.mapHierarchyFloor,
+            ...mapCoordinate
+        }
+
+        const data = CalcPosition(image, floorDimension, location)
+
+        //
+        // const floor = locationCurrent.mapHierarchyFloor.split(">")
+        //
+        //
+        // //init all data
+        // const { image } = locationCurrent
+        // const { floorDimension } = locationCurrent
+        // const { mapCoordinate } = locationCurrent
+        //
+        // const kWidth = image.width / floorDimension.width
+        // const kHeight = image.height / floorDimension.length
+        // const width = kWidth * mapCoordinate.x
+        // const height = kHeight * mapCoordinate.y
 
         this.setState({
             ...this.state,
-            building: floor[floor.length - 2],
-            currentFloor: floor[floor.length - 1],
+            building: data.floor[data.floor.length - 2],
+            currentFloor: data.floor[data.floor.length - 1],
             user: {
                 ...this.state.user,
                 location: {
-                    floor: floor[floor.length - 1],
-                    x: width,
-                    y: height,
+                    floor: data.floor[data.floor.length - 1],
+                    x: data.width,
+                    y: data.height,
                 }
             },
             api: locationCurrent
@@ -153,7 +166,7 @@ class StudentsView extends Component {
                     </div>
 
                     <div className="col-lg-6">
-                        {Object.keys(this.state.user.info).length > 0 && <FavouriteTeachersComponent iPcn={this.state.user.info.id}/>}
+                        {Object.keys(this.state.user.info).length > 0  && <FavouriteTeachersComponent iPcn={this.state.user.info.id}/>}
                     </div>
                 </div>
 
@@ -165,7 +178,7 @@ class StudentsView extends Component {
                     </div>
                     <div className="row ">
                         <div className="col">
-                            {Object.keys(this.state.user).length > 0 && Object.keys(this.state.api).length > 0 ?
+                            {Object.keys(this.state.user.info).length > 0 && Object.keys(this.state.api).length > 0 ?
                                 <Map user={this.state.user} api={this.state.api} currentFloor={this.state.currentFloor}/> : "Loading..."
                             }
                         </div>
@@ -192,7 +205,7 @@ class StudentsView extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        locationCurrent: state.location
+        locationCurrent: state.location.userLocation
     }
 }
 

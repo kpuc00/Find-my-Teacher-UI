@@ -2,13 +2,16 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 
 import '../../styles/components/Misho/SearchBar.css';
-import {getAllTeachers} from "../../store/actions/teacher/teacherActions";
+import {getAllTeachers, getTeacherByiPcn} from "../../store/actions/teacher/teacherActions";
 import {connect} from "react-redux";
 
 
 
 import {BsStarFill, BsStar} from "react-icons/all";
 import {editFavouriteTeachersIpcn, getFavouriteTeachersIpcn} from "../../store/actions/favourities/favouritesAction";
+import {getTeacherLocation} from "../../store/actions/location/locationActions";
+
+import "../../styles/star.css"
 
 class AutoCompleteText extends React.Component {
     constructor(props) {
@@ -28,7 +31,7 @@ class AutoCompleteText extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.teachers.length > 0 && prevState.teachers !== this.props.teachers) {
+        if (this.props.teachers && prevState.teachers !== this.props.teachers) {
             this.updateTeachers()
         }
 
@@ -36,9 +39,6 @@ class AutoCompleteText extends React.Component {
             this.updateFavourites()
         }
     }
-
-
-
 
     updateTeachers = () => {
         this.setState({teachers: this.props.teachers})
@@ -48,15 +48,16 @@ class AutoCompleteText extends React.Component {
         this.setState({favourites: this.props.favourites})
     }
 
-    getItemById(id) {
-        for(let i=0; i<this.state.teachers.length; i++) {
-            if(this.state.teachers[i].id === id) {
-                return this.state.teachers[i]
-            }
-        }
-    }
+    // getItemById(id) {
+    //     for(let i=0; i<this.state.teachers.length; i++) {
+    //         if(this.state.teachers[i].id === id) {
+    //             return this.state.teachers[i]
+    //         }
+    //     }
+    // }
 
     handleFavouriteInput(id) {
+        console.log("search fav")
         let newFavourites  = [...this.state.favourites]
 
         if (newFavourites.includes(id)) {
@@ -96,7 +97,8 @@ class AutoCompleteText extends React.Component {
 
     suggestionSelected(teacher) {
 
-        console.log("get location")
+        this.props.getTeacherLocation("i428100")
+        this.props.getTeacherByiPcn(teacher.id)
 
         this.setState(() => ({
                 text: teacher.displayName,
@@ -111,16 +113,23 @@ class AutoCompleteText extends React.Component {
         if (suggestions.length === 0) {
             return null;
         }
+
         return (
             <ul className="mt-2 rounded mb-1">
-                {suggestions.map(item => <div key={item.id} className="d-flex p-1"><li className="mr-auto" onClick={() => this.suggestionSelected(item)}>{item.displayName}</li><div onClick={() => this.handleFavouriteInput(item.id)}>{this.state.favourites.includes(item.id) ? <BsStarFill size="2em"/> : <BsStar size="2em"/>}</div></div>)}
+                {suggestions.map(item =>
+                    <div key={item.id} className="d-flex p-1">
+                        <li className="mr-auto" onClick={() => this.suggestionSelected(item)}>{item.displayName}</li>
+                        <div className="star-div" key={item.id} onClick={() => this.handleFavouriteInput(item.id)}>{this.state.favourites.includes(item.id) ? <BsStarFill className="is-favourite"  size="2em"/> : <BsStar className="not-favourite" size="2em"/>}</div>
+                    </div>)}
             </ul>
+
         )
     }
 
 
 
     render() {
+
         return (
             <div className="SearchBox">
                 <div className="SearchBoxText">
@@ -136,7 +145,7 @@ class AutoCompleteText extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        teachers: state.teacher,
+        teachers: state.teacher.teachers,
         favourites: state.favourites
     }
 }
@@ -145,7 +154,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getAllTeachers: () => dispatch(getAllTeachers()),
         getFavouriteTeachersIpcn: iPcn => dispatch(getFavouriteTeachersIpcn(iPcn)),
-        editFavouriteTeachersIpcn: student => dispatch(editFavouriteTeachersIpcn(student))
+        editFavouriteTeachersIpcn: student => dispatch(editFavouriteTeachersIpcn(student)),
+        getTeacherLocation: iPcn => dispatch(getTeacherLocation(iPcn)),
+        getTeacherByiPcn : iPcn => dispatch(getTeacherByiPcn(iPcn))
+
     }
 }
 

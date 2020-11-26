@@ -28,7 +28,7 @@ class ToggleLocationBtn extends Component {
             }
         }
 
-        this.props.putTeacherLocation(teacher)
+        putTeacherLocation(teacher)
     }
 
     render() {
@@ -49,10 +49,6 @@ class ToggleLocationBtn extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        putTeacherLocation: teacher => dispatch(putTeacherLocation(teacher))
-    }
-}
 
-export default connect(null, mapDispatchToProps)(ToggleLocationBtn);
+
+export default ToggleLocationBtn;
