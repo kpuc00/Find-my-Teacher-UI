@@ -42,11 +42,9 @@ class StudentsView extends Component {
                 info: {},
                 location: {}
             },
-            api: {}
-
+            api: {},
+            selectedTeacher: null
         }
-
-
         autoBind(this)
     }
 
@@ -156,17 +154,27 @@ class StudentsView extends Component {
         )
     };
 
+    getSelectedTeacher = (teacher) => {
+        this.setState({
+            ...this.state,
+            selectedTeacher: teacher
+        })
+    }
+
     render() {
         return (
             <div className="p-3" style={{backgroundColor: "rgb(220,220,220)"}}>
-
                 <div className="row">
                     <div className="col-lg-6">
-                        {Object.keys(this.state.user.info).length > 0 && <SearchBar iPcn={this.state.user.info.id}/>}
+                        {Object.keys(this.state.user.info).length > 0 && <SearchBar iPcn={this.state.user.info.id}
+                                                                                    selectedTeacher={this.state.selectedTeacher}
+                                                                                    sendSelectedTeacher={this.getSelectedTeacher}
+                        />}
                     </div>
-
                     <div className="col-lg-6">
-                        {Object.keys(this.state.user.info).length > 0  && <FavouriteTeachersComponent iPcn={this.state.user.info.id}/>}
+                        {Object.keys(this.state.user.info).length > 0  && <FavouriteTeachersComponent iPcn={this.state.user.info.id}
+                                                                                                      sendSelectedTeacher={this.getSelectedTeacher}
+                        />}
                     </div>
                 </div>
                 {(Object.keys(this.state.user.info).length > 0 && Object.keys(this.state.api).length > 0) ?
@@ -184,7 +192,6 @@ class StudentsView extends Component {
                     </div> :
                     "Loading..."
                 }
-
                 <div className="row">
                     <div className="col">
                         <div className="float-left">

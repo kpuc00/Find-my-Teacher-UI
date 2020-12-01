@@ -19,9 +19,13 @@ export const getTeacherByiPcn = (iPcn) => {
         const allTeachers = getState().teacher.teachers
 
         const teacher = allTeachers.find(teacher => teacher.id === iPcn)
-
         dispatch({type: 'GET_SELECTED_TEACHER', data: teacher})
+    }
+}
 
+export const clearSelectedTeacher = () => {
+    return (dispatch) => {
+        dispatch({type: 'GET_SELECTED_TEACHER'})
     }
 }
 

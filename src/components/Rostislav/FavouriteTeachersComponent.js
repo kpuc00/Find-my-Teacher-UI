@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import '../../styles/components/Rostislav/favouriteTeachersComponent.css';
 
 import {Dropdown} from "react-bootstrap";
@@ -10,7 +10,7 @@ import {getAllTeachers, getTeacherByiPcn} from "../../store/actions/teacher/teac
 import {BsStar, BsStarFill} from "react-icons/all";
 import {getTeacherLocation} from "../../store/actions/location/locationActions";
 
-class FavouriteTeachersComponent extends Component{
+class FavouriteTeachersComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -50,13 +50,13 @@ class FavouriteTeachersComponent extends Component{
     }
 
     handleFavouriteInput = (id) => {
-        let newFavourites  = [...this.state.favourites]
+        let newFavourites = [...this.state.favourites]
 
         if (newFavourites.includes(id)) {
             for (let i = 0; i < newFavourites.length; i++) {
                 if (newFavourites[i] === id) {
                     newFavourites.splice(i, 1)
-                    this.props.editFavouriteTeachersIpcn({ iPcn: this.props.iPcn, favourites: newFavourites})
+                    this.props.editFavouriteTeachersIpcn({iPcn: this.props.iPcn, favourites: newFavourites})
 
                     this.setState({
                         favourites: newFavourites
@@ -67,29 +67,35 @@ class FavouriteTeachersComponent extends Component{
         }
 
         newFavourites.push(id)
-        this.props.editFavouriteTeachersIpcn({ iPcn: this.props.iPcn, favourites: newFavourites})
+        this.props.editFavouriteTeachersIpcn({iPcn: this.props.iPcn, favourites: newFavourites})
         this.setState({
             favourites: newFavourites
         })
 
     }
 
-    getLocation = (teacher) => {
+    handleSelect = (teacher) => {
         this.props.getTeacherLocation("i428100")
         this.props.getTeacherByiPcn(teacher.id)
+        this.props.sendSelectedTeacher(teacher)
     }
 
     render() {
 
         const favouritesItem = this.state.teachers.map((teacher, index) => {
             if (this.state.favourites.includes(teacher.id)) {
-                return (<Dropdown.Item key={index} className="d-flex align-items-center p-1" onClick={() => this.getLocation(teacher)}><div className="mr-auto">{teacher.displayName}</div><div onClick={() => this.handleFavouriteInput(teacher.id)}><BsStarFill size="1.5em"/> </div></Dropdown.Item>)
+                return (<Dropdown.Item key={index} className="d-flex align-items-center p-1"
+                                       onClick={() => this.handleSelect(teacher)}>
+                    <div className="mr-auto">{teacher.displayName}</div>
+                    <div onClick={() => this.handleFavouriteInput(teacher.id)}><BsStarFill size="1.5em"/></div>
+                </Dropdown.Item>)
             }
         })
 
         return (
-            <Dropdown className="btn btn-block" >
-                <Dropdown.Toggle id="dropdown-basic" style={{backgroundColor: "rgb(102, 51, 102)", borderStyle: "none"}}>
+            <Dropdown className="btn btn-block">
+                <Dropdown.Toggle id="dropdown-basic"
+                                 style={{backgroundColor: "rgb(102, 51, 102)", borderStyle: "none"}}>
                     Favourite Teachers
                 </Dropdown.Toggle>
 

@@ -7,6 +7,7 @@ export const getFavouriteTeachersIpcn = (iPcn) => {
             .then(response => {
                 dispatch({type: 'GET_FAVOURITE_TEACHERS_IPCN', data: response.data.favourites})
             })
+            .catch(err => console.log(err))
     }
 }
 

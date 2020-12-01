@@ -1,10 +1,12 @@
 .SearchBox {
     z-index: 2;
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .SearchBoxText {
-    width: 100%;
+    width: 50%;
     border: none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
@@ -28,7 +30,6 @@
     text-align: left;
     margin: 0;
     padding: 0;
-    border: none;
     background-color: white;
     border: 1px solid rgb(101, 52, 101);
     width: inherit;
@@ -47,12 +48,22 @@
 }
 
 .SearchBoxText li:hover {
-    background-color: rgba(139,0,139,0.20);
+    background-color: rgba(139, 0, 139, 0.20);
     border-radius: 5px;
     text-decoration: underline;
-} 
+}
 
 .SearchBoxText .d-flex:hover {
     background-color: rgba(128, 128, 128, 0.20);
 }
 
+.delete {
+    margin-left: 5px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding-left: 6px;
+    font-size: 20px;
+    border: 2px solid rgb(101, 52, 101);
+    border-radius: 50%;
+}

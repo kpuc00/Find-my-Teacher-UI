@@ -17,6 +17,7 @@ export const getCurrentUserLocation = () => {
 
                 dispatch({type: 'GET_USER_LOCATION', data: locationCurrent})
             })
+            .catch(err => console.log(err))
     }
 }
 
@@ -27,6 +28,12 @@ export const getTeacherLocation = (iPcn) => {
             .then(response => {
                 dispatch({type: 'GET_TEACHER_LOCATION', data: response.data})
             })
+    }
+}
+
+export const clearSelectedTeacherLocation = () => {
+    return (dispatch) => {
+        dispatch({type: 'GET_TEACHER_LOCATION'})
     }
 }
 

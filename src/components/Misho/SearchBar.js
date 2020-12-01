@@ -2,14 +2,13 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 
 import '../../styles/components/Misho/SearchBar.css';
-import {getAllTeachers, getTeacherByiPcn} from "../../store/actions/teacher/teacherActions";
+import {clearSelectedTeacher, getAllTeachers, getTeacherByiPcn} from "../../store/actions/teacher/teacherActions";
 import {connect} from "react-redux";
-
 
 
 import {BsStarFill, BsStar} from "react-icons/all";
 import {editFavouriteTeachersIpcn, getFavouriteTeachersIpcn} from "../../store/actions/favourities/favouritesAction";
-import {getTeacherLocation} from "../../store/actions/location/locationActions";
+import {clearSelectedTeacherLocation, getTeacherLocation} from "../../store/actions/location/locationActions";
 
 import "../../styles/star.css"
 
@@ -34,18 +33,33 @@ class AutoCompleteText extends React.Component {
         if (this.props.teachers && prevState.teachers !== this.props.teachers) {
             this.updateTeachers()
         }
-
         if (this.props.favourites && prevState.favourites !== this.props.favourites) {
             this.updateFavourites()
+        }
+        if(this.props.selectedTeacher && prevState.text !== this.props.selectedTeacher.displayName){
+            this.updateSearchBar()
         }
     }
 
     updateTeachers = () => {
-        this.setState({teachers: this.props.teachers})
+        this.setState({
+            ...this.state,
+            teachers: this.props.teachers
+        })
     }
 
     updateFavourites = () => {
-        this.setState({favourites: this.props.favourites})
+        this.setState({
+            ...this.state,
+            favourites: this.props.favourites
+        })
+    }
+
+    updateSearchBar = () => {
+        this.setState({
+            ...this.state,
+            text: this.props.selectedTeacher.displayName
+        })
     }
 
     // getItemById(id) {
@@ -57,13 +71,13 @@ class AutoCompleteText extends React.Component {
     // }
 
     handleFavouriteInput(id) {
-        let newFavourites  = [...this.state.favourites]
+        let newFavourites = [...this.state.favourites]
 
         if (newFavourites.includes(id)) {
             for (let i = 0; i < newFavourites.length; i++) {
                 if (newFavourites[i] === id) {
                     newFavourites.splice(i, 1)
-                    this.props.editFavouriteTeachersIpcn({ iPcn: this.props.iPcn, favourites: newFavourites})
+                    this.props.editFavouriteTeachersIpcn({iPcn: this.props.iPcn, favourites: newFavourites})
 
                     this.setState({
                         favourites: newFavourites
@@ -74,11 +88,10 @@ class AutoCompleteText extends React.Component {
         }
 
         newFavourites.push(id)
-        this.props.editFavouriteTeachersIpcn({ iPcn: this.props.iPcn, favourites: newFavourites})
+        this.props.editFavouriteTeachersIpcn({iPcn: this.props.iPcn, favourites: newFavourites})
         this.setState({
             favourites: newFavourites
         })
-
     }
 
     handleTextInput = (event) => {
@@ -95,7 +108,6 @@ class AutoCompleteText extends React.Component {
     }
 
     suggestionSelected(teacher) {
-
         this.props.getTeacherLocation("i428100")
         this.props.getTeacherByiPcn(teacher.id)
 
@@ -106,9 +118,18 @@ class AutoCompleteText extends React.Component {
         )
     }
 
+    handleRemoveSelected = () => {
+        this.props.clearSelectedTeacher();
+        this.props.clearSelectedTeacherLocation();
+        this.props.sendSelectedTeacher(null);
+        this.setState({
+            ...this.state,
+            text: ""
+        })
+    }
 
     renderSuggestions() {
-        const suggestions  = this.state.suggestions
+        const suggestions = this.state.suggestions
         if (suggestions.length === 0) {
             return null;
         }
@@ -118,24 +139,25 @@ class AutoCompleteText extends React.Component {
                 {suggestions.map(item =>
                     <div key={item.id} className="d-flex p-1">
                         <li className="mr-auto" onClick={() => this.suggestionSelected(item)}>{item.displayName}</li>
-                        <div className="star-div" key={item.id} onClick={() => this.handleFavouriteInput(item.id)}>{this.state.favourites.includes(item.id) ? <BsStarFill className="is-favourite"  size="2em"/> : <BsStar className="not-favourite" size="2em"/>}</div>
+                        <div className="star-div" key={item.id}
+                             onClick={() => this.handleFavouriteInput(item.id)}>{this.state.favourites.includes(item.id) ?
+                            <BsStarFill className="is-favourite" size="2em"/> :
+                            <BsStar className="not-favourite" size="2em"/>}</div>
                     </div>)}
             </ul>
 
         )
     }
 
-
-
     render() {
-
         return (
             <div className="SearchBox">
                 <div className="SearchBoxText">
-                    <input value={this.state.text} onChange={this.handleTextInput} type="text" placeholder="Search..."  className="rounded mb-0"/>
+                    <input value={this.state.text} onChange={this.handleTextInput} type="text" placeholder="Search..."
+                           className="rounded mb-0"/>
                     {this.renderSuggestions()}
                 </div>
-
+                <span className="delete" onClick={() => this.handleRemoveSelected()}>X</span>
             </div>
         )
     }
@@ -155,8 +177,9 @@ const mapDispatchToProps = (dispatch) => {
         getFavouriteTeachersIpcn: iPcn => dispatch(getFavouriteTeachersIpcn(iPcn)),
         editFavouriteTeachersIpcn: student => dispatch(editFavouriteTeachersIpcn(student)),
         getTeacherLocation: iPcn => dispatch(getTeacherLocation(iPcn)),
-        getTeacherByiPcn : iPcn => dispatch(getTeacherByiPcn(iPcn))
-
+        getTeacherByiPcn: iPcn => dispatch(getTeacherByiPcn(iPcn)),
+        clearSelectedTeacher: () => dispatch(clearSelectedTeacher()),
+        clearSelectedTeacherLocation: () => dispatch(clearSelectedTeacherLocation())
     }
 }
 
