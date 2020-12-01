@@ -77,7 +77,6 @@ class FavouriteTeachersComponent extends Component {
     handleSelect = (teacher) => {
         this.props.getTeacherLocation("i428100")
         this.props.getTeacherByiPcn(teacher.id)
-        this.props.sendSelectedTeacher(teacher)
     }
 
     render() {
@@ -111,6 +110,7 @@ class FavouriteTeachersComponent extends Component {
 const mapStateToProps = (state) => {
     return {
         teachers: state.teacher.teachers,
+        selectedTeacher: state.teacher.selectedTeacher,
         favourites: state.favourites
     }
 }

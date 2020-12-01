@@ -166,15 +166,10 @@ class StudentsView extends Component {
             <div className="p-3" style={{backgroundColor: "rgb(220,220,220)"}}>
                 <div className="row">
                     <div className="col-lg-6">
-                        {Object.keys(this.state.user.info).length > 0 && <SearchBar iPcn={this.state.user.info.id}
-                                                                                    selectedTeacher={this.state.selectedTeacher}
-                                                                                    sendSelectedTeacher={this.getSelectedTeacher}
-                        />}
+                        {Object.keys(this.state.user.info).length > 0 && <SearchBar iPcn={this.state.user.info.id}/>}
                     </div>
                     <div className="col-lg-6">
-                        {Object.keys(this.state.user.info).length > 0  && <FavouriteTeachersComponent iPcn={this.state.user.info.id}
-                                                                                                      sendSelectedTeacher={this.getSelectedTeacher}
-                        />}
+                        {Object.keys(this.state.user.info).length > 0  && <FavouriteTeachersComponent iPcn={this.state.user.info.id}/>}
                     </div>
                 </div>
                 {(Object.keys(this.state.user.info).length > 0 && Object.keys(this.state.api).length > 0) ?

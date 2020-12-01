@@ -121,7 +121,6 @@ class AutoCompleteText extends React.Component {
     handleRemoveSelected = () => {
         this.props.clearSelectedTeacher();
         this.props.clearSelectedTeacherLocation();
-        this.props.sendSelectedTeacher(null);
         this.setState({
             ...this.state,
             text: ""
@@ -167,6 +166,7 @@ class AutoCompleteText extends React.Component {
 const mapStateToProps = (state) => {
     return {
         teachers: state.teacher.teachers,
+        selectedTeacher: state.teacher.selectedTeacher,
         favourites: state.favourites
     }
 }
