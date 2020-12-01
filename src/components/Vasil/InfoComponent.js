@@ -8,9 +8,7 @@ class InfoComponent extends Component {
         return (
             <div className={"teacher-info"}>
                 <div className={"container"}>
-                    <div className={"header"}>
-                        <span>Teacher's Information</span>
-                    </div>
+                    <span className={'header'}>Teacher's Information</span>
                     <div className={"info"}>
                         <div className={"row"}>
                             <span>Name: </span>

@@ -2,8 +2,8 @@
     max-width: max-content;
     border: 2px solid rgb(102, 51, 102);
     border-radius: 5px;
-    margin: 10px;
     background-color: white;
+    padding: 0;
 }
 
 .teacher-info .header {
@@ -18,38 +18,15 @@
     justify-content: center;
 }
 
-.teacher-info .button-open {
-    max-width: 280px;
-    background-color: rgb(102, 51, 102);
-    color: white;
-    border-radius: 5px;
-    border: 2px solid rgb(102, 51, 102);
-    margin: 10px;
-    padding: 10px;
-    font-family: "RobotoRegular", Arial, sans-serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-}
-
-.teacher-info .button-close {
-    height: 23px;
-    width: 23px;
-    background-color: white;
-    color: rgb(102, 51, 102);
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-}
-
 .teacher-info .info {
-    padding: 10px;
+    margin: 10px;
 }
 
 .teacher-info .row {
     border-bottom: 1px solid rgb(102, 51, 102);
     margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     display: flex;
     justify-content: space-between;
 }

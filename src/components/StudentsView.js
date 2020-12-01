@@ -26,6 +26,7 @@ import axios from "axios"
 import {Container, Jumbotron} from "react-bootstrap";
 import ToggleLocationBtn from "./Kris/ToggleLocationBtn";
 import { CalcPosition } from "../services/CalcPosition";
+import InfoComponent from "./Vasil/InfoComponent";
 
 
 class StudentsView extends Component {

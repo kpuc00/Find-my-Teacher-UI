@@ -58,11 +58,13 @@
 }
 
 .delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 5px;
     cursor: pointer;
     width: 30px;
     height: 30px;
-    padding-left: 6px;
     font-size: 20px;
     border: 2px solid rgb(101, 52, 101);
     border-radius: 50%;

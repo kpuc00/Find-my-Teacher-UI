@@ -20,13 +20,22 @@ class AutoCompleteText extends React.Component {
             teachers: [],
             suggestions: [],
             favourites: [],
-            text: ""
+            text: "",
+            showSuggestions: false
         }
     }
 
     componentDidMount() {
         this.props.getAllTeachers()
         this.props.getFavouriteTeachersIpcn(this.props.iPcn)
+
+        let searchBar = document.querySelector('#searchbar')
+        document.addEventListener('click', () => {
+            this.setState({
+                ...this.state,
+                showSuggestions: document.activeElement === searchBar
+            })
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -36,7 +45,7 @@ class AutoCompleteText extends React.Component {
         if (this.props.favourites && prevState.favourites !== this.props.favourites) {
             this.updateFavourites()
         }
-        if(this.props.selectedTeacher && prevState.text !== this.props.selectedTeacher.displayName){
+        if (this.props.selectedTeacher && prevState.text === '') {
             this.updateSearchBar()
         }
     }
@@ -95,8 +104,12 @@ class AutoCompleteText extends React.Component {
     }
 
     handleTextInput = (event) => {
-
         const value = event.target.value
+        if(value === ''){
+            this.props.clearSelectedTeacher()
+            this.props.clearSelectedTeacherLocation()
+        }
+
         let suggestions = [];
 
         if (value.length > 0) {
@@ -104,7 +117,11 @@ class AutoCompleteText extends React.Component {
             suggestions = this.state.teachers.sort().filter(v => regex.test(v.displayName))
         }
 
-        this.setState(() => ({suggestions, text: value}))
+        this.setState(() => ({
+            ...this.state,
+            suggestions,
+            text: value
+        }))
     }
 
     suggestionSelected(teacher) {
@@ -152,11 +169,12 @@ class AutoCompleteText extends React.Component {
         return (
             <div className="SearchBox">
                 <div className="SearchBoxText">
-                    <input value={this.state.text} onChange={this.handleTextInput} type="text" placeholder="Search..."
+                    <input id={'searchbar'} value={this.state.text} onChange={this.handleTextInput} type="text"
+                           placeholder="Search..."
                            className="rounded mb-0"/>
-                    {this.renderSuggestions()}
+                    {this.state.showSuggestions ? this.renderSuggestions() : null}
                 </div>
-                <span className="delete" onClick={() => this.handleRemoveSelected()}>X</span>
+                <div className="delete" onClick={() => this.handleRemoveSelected()}>X</div>
             </div>
         )
     }
