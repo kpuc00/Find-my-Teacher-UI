@@ -12,21 +12,14 @@ import BackBtn from './Kris/BackBtn';
 import Map from './Map';
 
 //Bootstrap
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
 //connect to store
 import { connect } from "react-redux";
-import { getCurrentUser, getUserPicture } from "../store/actions/user/userActions";
+import { getCurrentUser } from "../store/actions/user/userActions";
 import { getCurrentUserLocation } from "../store/actions/location/locationActions";
-import authHeader from "../services/auth-header";
 
-
-import axios from "axios"
-import {Container, Jumbotron} from "react-bootstrap";
 import ToggleLocationBtn from "./Kris/ToggleLocationBtn";
 import { CalcPosition } from "../services/CalcPosition";
-import InfoComponent from "./Vasil/InfoComponent";
 
 
 class StudentsView extends Component {

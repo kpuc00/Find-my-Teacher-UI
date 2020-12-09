@@ -3,17 +3,9 @@ import { ToggleButton } from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { FaLocationArrow } from 'react-icons/fa';
 import '../../styles/components/Kris/ToggleLocationBtn.css';
-import {getCurrentUser} from "../../store/actions/user/userActions";
-import {getCurrentUserLocation} from "../../store/actions/location/locationActions";
 import {putTeacherLocation} from "../../store/actions/teacher/teacherActions";
-import {connect} from "react-redux";
-import autoBind from "auto-bind";
 
 class ToggleLocationBtn extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     ToggleGPS = () => {
         const { user } = this.props.data

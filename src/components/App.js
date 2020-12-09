@@ -6,9 +6,8 @@ import {
   } from "react-router-dom";
 import StudentsView from './StudentsView';
 import TeachersView from './TeachersView';
-
-
 import '../styles/components/App.css';
+import SocketTest from "./Vasil/SocketTest";
 
 function App() {
     return (
@@ -19,6 +18,8 @@ function App() {
                 
                 {/*Teacher path*/}
                 <Route exact path={`/teacher`} component={TeachersView}/>
+
+                <Route exact path={'/socket'} component={SocketTest}/>
             </Switch>
         </Router>
     );

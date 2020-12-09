@@ -7,7 +7,7 @@ import {editFavouriteTeachersIpcn, getFavouriteTeachersIpcn} from "../../store/a
 import {connect} from "react-redux";
 import autoBind from "auto-bind";
 import {getAllTeachers, getTeacherByiPcn} from "../../store/actions/teacher/teacherActions";
-import {BsStar, BsStarFill} from "react-icons/all";
+import {BsStarFill} from "react-icons/all";
 import {getTeacherLocation} from "../../store/actions/location/locationActions";
 
 class FavouriteTeachersComponent extends Component {
@@ -89,6 +89,7 @@ class FavouriteTeachersComponent extends Component {
                     <div onClick={() => this.handleFavouriteInput(teacher.id)}><BsStarFill size="1.5em"/></div>
                 </Dropdown.Item>)
             }
+            return null;
         })
 
         return (

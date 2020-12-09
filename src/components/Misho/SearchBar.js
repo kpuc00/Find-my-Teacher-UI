@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
 
 import '../../styles/components/Misho/SearchBar.css';
 import {clearSelectedTeacher, getAllTeachers, getTeacherByiPcn} from "../../store/actions/teacher/teacherActions";

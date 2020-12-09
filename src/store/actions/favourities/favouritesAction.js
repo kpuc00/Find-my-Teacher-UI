@@ -1,5 +1,4 @@
 import axios from "axios";
-import {getAllTeachers, getAllTeachersFromState} from "../teacher/teacherActions";
 
 export const getFavouriteTeachersIpcn = (iPcn) => {
     return (dispatch) => {

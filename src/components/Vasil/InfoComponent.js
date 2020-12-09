@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import '../../styles/components/Vasil/teacherInfoComponent.css';
-import {Container, Jumbotron, Card, ListGroup, ListGroupItem} from "react-bootstrap";
 
 
 class InfoComponent extends Component {
