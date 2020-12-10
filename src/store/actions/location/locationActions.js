@@ -23,11 +23,31 @@ export const getCurrentUserLocation = () => {
 
 
 export const getTeacherLocation = (iPcn) => {
-    return (dispatch) => {
-        axios.get(`/teacher/${iPcn}/location`)
+    return (dispatch, getState) => {
+        /*axios.get(`/teacher/${iPcn}/location`)
             .then(response => {
                 dispatch({type: 'GET_TEACHER_LOCATION', data: response.data})
-            })
+            })*/
+
+        const teachersLocations = getState().location.teachersLocations
+        const teacher = teachersLocations.find(t => t.teacher.iPcn === iPcn)
+        dispatch({type: 'GET_TEACHER_LOCATION', data: teacher.teacher})
+    }
+}
+
+export const updateTeachersLocations = (teacher) => {
+    return (dispatch, getState) => {
+        const teachersLocations = getState().location.teachersLocations
+        const updatedTeacher = teachersLocations.find(t => t.iPcn === teacher.iPcn)
+
+        if (updatedTeacher) {
+            teachersLocations[teachersLocations.indexOf(updatedTeacher)] = teacher
+        } else {
+            teachersLocations.push(teacher)
+        }
+
+        dispatch({type: 'UPDATE_TEACHERS_LOCATIONS', data: teachersLocations})
+        dispatch(getTeacherLocation(teacher.teacher.iPcn))
     }
 }
 

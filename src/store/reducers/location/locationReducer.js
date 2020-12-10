@@ -1,4 +1,8 @@
-const locationReducer = (state = {}, action) => {
+const initState = {
+    teachersLocations: []
+}
+
+const locationReducer = (state = initState, action) => {
     switch (action.type) {
         case 'GET_USER_LOCATION':
             return {
@@ -9,6 +13,11 @@ const locationReducer = (state = {}, action) => {
             return {
                 ...state,
                 teacherLocation: action.data
+            }
+        case 'UPDATE_TEACHERS_LOCATIONS':
+            return {
+                ...state,
+                teachersLocations: action.data
             }
         default:
             return state

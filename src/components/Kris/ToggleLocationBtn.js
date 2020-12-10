@@ -1,16 +1,27 @@
-import React, { Component } from 'react'
-import { ToggleButton } from 'react-bootstrap';
+import React, {Component} from 'react'
+import {Button} from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import { FaLocationArrow } from 'react-icons/fa';
+import {FaLocationArrow} from 'react-icons/fa';
 import '../../styles/components/Kris/ToggleLocationBtn.css';
-import {putTeacherLocation} from "../../store/actions/teacher/teacherActions";
+import {socket} from "../../services/socket";
+import {connect} from "react-redux";
+
+let counter = 1;
+let interval;
 
 class ToggleLocationBtn extends Component {
 
-    ToggleGPS = () => {
-        const { user } = this.props.data
-        const { api } = this.props.data
+    state = {
+        isSharing: false,
+    }
 
+    ToggleGPS = () => {
+        this.setState({
+            isSharing: !this.state.isSharing
+        })
+
+        const {user} = this.props.data
+        const {api} = this.props.data
 
         const teacher = {
             iPcn: user.info.id,
@@ -21,21 +32,28 @@ class ToggleLocationBtn extends Component {
             }
         }
 
-        putTeacherLocation(teacher)
+        function sendLocation() {
+            counter++;
+            teacher.coordinates.x -= counter;
+            socket.send(teacher)
+            return null;
+        }
+
+        if (this.state.isSharing) {
+            clearInterval(interval)
+        } else {
+            sendLocation(teacher)
+            interval = setInterval(sendLocation, 5000)
+        }
     }
 
     render() {
         return (
             <div className="ToggleLocationBtnContainer">
                 <ButtonGroup toggle className="mb-2">
-                    <ToggleButton className="ToggleBtn"
-                        type="checkbox"
-                        checked={false}
-                        value="1"
-                        onChange={this.ToggleGPS}
-                    >
-                        <FaLocationArrow />
-                    </ToggleButton>
+                    <Button className="ToggleBtn" disabled={!this.props.isConnected} onClick={this.ToggleGPS}>
+                        <FaLocationArrow/>
+                    </Button>
                 </ButtonGroup>
             </div>
         )
@@ -43,5 +61,10 @@ class ToggleLocationBtn extends Component {
 }
 
 
+const mapStateToProps = (state) => {
+    return {
+        isConnected: state.socket.isConnected
+    }
+}
 
-export default ToggleLocationBtn;
+export default connect(mapStateToProps)(ToggleLocationBtn);

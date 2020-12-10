@@ -3,10 +3,11 @@ import {CalcPosition} from "../services/CalcPosition";
 import MapObject from "../components/MapObject";
 
 import {connect} from "react-redux";
+import {getTeacherLocation} from "../store/actions/location/locationActions";
 
 class Map extends Component {
 
-    constructTeacher = (api ) => {
+    constructTeacher = (api) => {
         let teacherPosition = {}
         let teacherInfo = {}
 
@@ -44,7 +45,7 @@ class Map extends Component {
                     />
 
                     <MapObject person={user} currentFloor={currentFloor}/>
-                    {teacher && <MapObject person={teacher} currentFloor={currentFloor}/>}
+                    {teacher && teacher.info && <MapObject person={teacher} currentFloor={currentFloor}/>}
 
                 </div>
             </div>
@@ -55,9 +56,15 @@ class Map extends Component {
 const mapStateToProps = (state) => {
     return {
         teacherLocation: state.location.teacherLocation,
-        selectedTeacher: state.teacher.selectedTeacher
+        selectedTeacher: state.teacher.selectedTeacher,
+        teachersLocations: state.location.teachersLocations
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getTeacherLocation: iPcn => dispatch(getTeacherLocation(iPcn)),
+    }
+}
 
-export default connect(mapStateToProps, null)(Map)
+export default connect(mapStateToProps, mapDispatchToProps)(Map)

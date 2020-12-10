@@ -193,7 +193,7 @@ const mapDispatchToProps = (dispatch) => {
         getAllTeachers: () => dispatch(getAllTeachers()),
         getFavouriteTeachersIpcn: iPcn => dispatch(getFavouriteTeachersIpcn(iPcn)),
         editFavouriteTeachersIpcn: student => dispatch(editFavouriteTeachersIpcn(student)),
-        getTeacherLocation: iPcn => dispatch(getTeacherLocation(iPcn)),
+        getTeacherLocation: iPcn => dispatch(getTeacherLocation('i431062')),
         getTeacherByiPcn: iPcn => dispatch(getTeacherByiPcn(iPcn)),
         clearSelectedTeacher: () => dispatch(clearSelectedTeacher()),
         clearSelectedTeacherLocation: () => dispatch(clearSelectedTeacherLocation())

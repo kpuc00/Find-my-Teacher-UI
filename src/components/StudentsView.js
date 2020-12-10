@@ -20,8 +20,9 @@ import { getCurrentUserLocation } from "../store/actions/location/locationAction
 
 import ToggleLocationBtn from "./Kris/ToggleLocationBtn";
 import { CalcPosition } from "../services/CalcPosition";
+import {socket} from "../services/socket";
 
-
+let interval;
 class StudentsView extends Component {
 
     constructor(props) {
@@ -45,10 +46,11 @@ class StudentsView extends Component {
     componentDidMount() {
         this.props.getCurrentUser();
         this.props.getCurrentUserLocation();
+        interval = setInterval(this.props.getCurrentUserLocation, 1000)
+        socket.connect();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-
         if (Object.keys(this.props.user).length > 0 && prevState.user.info !== this.props.user) {
             this.updateUserInfo();
         }
