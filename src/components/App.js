@@ -5,21 +5,48 @@ import {
     Route
   } from "react-router-dom";
 import StudentsView from './StudentsView';
-import TeachersView from './TeachersView';
 import '../styles/components/App.css';
-import SocketTest from "./Vasil/SocketTest";
+import {Authenticate} from "react-oidc-client";
+import {WebStorageStateStore} from "oidc-client";
 
 function App() {
+
+    const url = window.location.href
+    const id_token = new URLSearchParams(url).get('https://find-my-teacher.azurewebsites.net/student#access_token')
+
+    if(id_token){
+        localStorage.setItem("my_token", id_token)
+    }
+
     return (
         <Router>
             <Switch>
-                {/*Student path*/}
-                <Route exact path={`/student`} component={StudentsView}/>
-                
-                {/*Teacher path*/}
-                <Route exact path={`/teacher`} component={TeachersView}/>
+                {/*<Route exact path="/" component={() =>*/}
+                {/*    window.location.href = "https://identity.fhict.nl/connect/authorize?client_id=i431062-findmyteac&scope=fhict%20fhict_location%20fhict_personal&response_type=token&redirect_uri=https://find-my-teacher.azurewebsites.net/student"}*/}
+                {/*    return null*/}
+                {/*/>*/}
 
-                <Route exact path={'/socket'} component={SocketTest}/>
+                {/*<Route path="/student" component={StudentsView} />*/}
+
+                <Authenticate
+                    loginCompletePath="/student"
+                    logoutPath="/my_logout_path"
+                    userManagerSettings={{
+                        loadUserInfo: true,
+                        userStore: new WebStorageStateStore({
+                            store: localStorage
+                        }),
+                        authority: "https://identity.fhict.nl/connect/authorize",
+                        client_id: "i431062-findmyteac",
+                        scope: "fhict fhict_location fhict_personal",
+                        response_type: "token",
+                        redirect_uri: "https://find-my-teacher.azurewebsites.net/student"
+                    }}
+                >
+
+                    <StudentsView/>
+
+                </Authenticate>
             </Switch>
         </Router>
     );

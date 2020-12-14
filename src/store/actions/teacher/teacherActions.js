@@ -1,5 +1,6 @@
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
+import {BASE_ROUTE} from "../../../config/BaseRoutes";
 
 export const getAllTeachers = () => {
     return (dispatch) => {
@@ -11,7 +12,7 @@ export const getAllTeachers = () => {
 }
 
 export const putTeacherLocation = (teacher) => {
-    axios.put(`/teacher/edit/location`, teacher)
+    axios.put(`${BASE_ROUTE.API}/teacher/edit/location`, teacher)
 }
 
 export const getTeacherByiPcn = (iPcn) => {

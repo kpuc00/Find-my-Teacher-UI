@@ -11,8 +11,6 @@ import BackBtn from './Kris/BackBtn';
 
 import Map from './Map';
 
-//Bootstrap
-
 //connect to store
 import { connect } from "react-redux";
 import { getCurrentUser } from "../store/actions/user/userActions";
@@ -150,12 +148,12 @@ class StudentsView extends Component {
         )
     };
 
-    getSelectedTeacher = (teacher) => {
-        this.setState({
-            ...this.state,
-            selectedTeacher: teacher
-        })
-    }
+    // getSelectedTeacher = (teacher) => {
+    //     this.setState({
+    //         ...this.state,
+    //         selectedTeacher: teacher
+    //     })
+    // }
 
     render() {
         return (

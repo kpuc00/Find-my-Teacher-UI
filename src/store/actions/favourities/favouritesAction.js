@@ -1,8 +1,10 @@
 import axios from "axios";
+import {BASE_ROUTE} from "../../../config/BaseRoutes";
+
 
 export const getFavouriteTeachersIpcn = (iPcn) => {
     return (dispatch) => {
-        axios.get(`/student/${iPcn}/favourites`)
+        axios.get(`${BASE_ROUTE.API}/student/${iPcn}/favourites`)
             .then(response => {
                 dispatch({type: 'GET_FAVOURITE_TEACHERS_IPCN', data: response.data.favourites})
             })
@@ -12,7 +14,7 @@ export const getFavouriteTeachersIpcn = (iPcn) => {
 
 export const editFavouriteTeachersIpcn = (student) => {
     return (dispatch) => {
-        axios.put(`/student/edit/favourites`, student)
+        axios.put(`${BASE_ROUTE.API}/student/edit/favourites`, student)
             .then(() => dispatch(getFavouriteTeachersIpcn(student.iPcn)))
     }
 }
