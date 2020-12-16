@@ -70,13 +70,13 @@ class AutoCompleteText extends React.Component {
         })
     }
 
-    // getItemById(id) {
-    //     for(let i=0; i<this.state.teachers.length; i++) {
-    //         if(this.state.teachers[i].id === id) {
-    //             return this.state.teachers[i]
-    //         }
-    //     }
-    // }
+    getItemById(id) {
+        for(let i=0; i<this.state.teachers.length; i++) {
+            if(this.state.teachers[i].id === id) {
+                return this.state.teachers[i]
+            }
+        }
+    }
 
     handleFavouriteInput(id) {
         let newFavourites = [...this.state.favourites]
@@ -124,7 +124,7 @@ class AutoCompleteText extends React.Component {
     }
 
     suggestionSelected(teacher) {
-        this.props.getTeacherLocation("i428100")
+        this.props.getTeacherLocation("i431062")
         this.props.getTeacherByiPcn(teacher.id)
 
         this.setState(() => ({
@@ -193,7 +193,7 @@ const mapDispatchToProps = (dispatch) => {
         getAllTeachers: () => dispatch(getAllTeachers()),
         getFavouriteTeachersIpcn: iPcn => dispatch(getFavouriteTeachersIpcn(iPcn)),
         editFavouriteTeachersIpcn: student => dispatch(editFavouriteTeachersIpcn(student)),
-        getTeacherLocation: iPcn => dispatch(getTeacherLocation('i431062')),
+        getTeacherLocation: iPcn => dispatch(getTeacherLocation(iPcn)),
         getTeacherByiPcn: iPcn => dispatch(getTeacherByiPcn(iPcn)),
         clearSelectedTeacher: () => dispatch(clearSelectedTeacher()),
         clearSelectedTeacherLocation: () => dispatch(clearSelectedTeacherLocation())

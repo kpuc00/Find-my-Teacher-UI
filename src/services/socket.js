@@ -12,15 +12,15 @@ export const socket = {
         let socket = new SockJs(`${BASE_ROUTE.API}/socket`);
         stompClient = Stomp.over(socket);
 
-        stompClient.connect({ withCredentials : false}, () => {
+        stompClient.connect({}, () => {
             store.dispatch(toggleIsSocketConnected())
-            stompClient.subscribe(`${BASE_ROUTE.API}/locations`, teacher => {
+            stompClient.subscribe(`/locations`, teacher => {
                 store.dispatch(updateTeachersLocations(JSON.parse(teacher.body)))
             });
         });
     },
 
     send: (teacher) => {
-        stompClient.send(`${BASE_ROUTE.API}/teacher/edit/location`, {}, JSON.stringify({teacher: teacher}));
+        stompClient.send(`/teacher/edit/location`, {}, JSON.stringify({teacher: teacher}));
     }
 }

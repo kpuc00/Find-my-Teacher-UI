@@ -30,7 +30,6 @@ class StudentsView extends Component {
             floors: ["BG", "1e", "2e", "3e", "4e"],
             currentFloor: "BG",
             floorIndex: 0,
-
             user: {
                 info: {},
                 location: {}
@@ -82,7 +81,6 @@ class StudentsView extends Component {
 
         const data = CalcPosition(image, floorDimension, location)
 
-        //
         // const floor = locationCurrent.mapHierarchyFloor.split(">")
         //
         //
@@ -96,21 +94,38 @@ class StudentsView extends Component {
         // const width = kWidth * mapCoordinate.x
         // const height = kHeight * mapCoordinate.y
 
-        this.setState({
-            ...this.state,
-            building: data.floor[data.floor.length - 2],
-            currentFloor: data.floor[data.floor.length - 1],
-            user: {
-                ...this.state.user,
-                location: {
-                    floor: data.floor[data.floor.length - 1],
-                    x: data.width,
-                    y: data.height,
-                }
-            },
-            api: locationCurrent
+        if (this.state.user.location.floor !== data.floor[data.floor.length - 1] ||
+            this.state.building !== data.floor[data.floor.length - 2]) {
+            this.setState({
+                ...this.state,
+                building: data.floor[data.floor.length - 2],
+                currentFloor: data.floor[data.floor.length - 1],
+                user: {
+                    ...this.state.user,
+                    location: {
+                        floor: data.floor[data.floor.length - 1],
+                        x: data.width,
+                        y: data.height,
+                    }
+                },
+                api: locationCurrent
+            })
+        } else {
+            this.setState({
+                ...this.state,
+                user: {
+                    ...this.state.user,
+                    location: {
+                        floor: data.floor[data.floor.length - 1],
+                        x: data.width,
+                        y: data.height,
+                    }
+                },
+                api: locationCurrent
+            })
+        }
 
-        })
+
 
         // ...this.state.api,
         //     mapCoordinate: mapCoordinate,

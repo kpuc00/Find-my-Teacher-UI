@@ -30,7 +30,7 @@ export const getTeacherLocation = (iPcn) => {
             })*/
 
         const teachersLocations = getState().location.teachersLocations
-        const teacher = teachersLocations.find(t => t.teacher.iPcn === iPcn)
+        const teacher = teachersLocations.find(t =>  t.teacher.iPcn === iPcn)
         dispatch({type: 'GET_TEACHER_LOCATION', data: teacher.teacher})
     }
 }
@@ -38,6 +38,7 @@ export const getTeacherLocation = (iPcn) => {
 export const updateTeachersLocations = (teacher) => {
     return (dispatch, getState) => {
         const teachersLocations = getState().location.teachersLocations
+
         const updatedTeacher = teachersLocations.find(t => t.iPcn === teacher.iPcn)
 
         if (updatedTeacher) {
