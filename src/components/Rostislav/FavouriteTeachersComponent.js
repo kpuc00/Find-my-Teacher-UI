@@ -82,6 +82,7 @@ class FavouriteTeachersComponent extends Component {
     render() {
 
         const favouritesItem = this.state.teachers.map((teacher, index) => {
+
             if (this.state.favourites.includes(teacher.id)) {
                 return (<Dropdown.Item key={index} className="d-flex align-items-center p-1"
                                        onClick={() => this.handleSelect(teacher)}>
@@ -89,8 +90,9 @@ class FavouriteTeachersComponent extends Component {
                     <div onClick={() => this.handleFavouriteInput(teacher.id)}><BsStarFill size="1.5em"/></div>
                 </Dropdown.Item>)
             }
-            return null;
         })
+
+
 
         return (
             <Dropdown className="btn btn-block">
@@ -100,9 +102,15 @@ class FavouriteTeachersComponent extends Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    {favouritesItem}
+                    {
+                        this.state.favourites==0 || this.state.favourites==null ?(<Dropdown.Item disabled key={0} className="d-flex align-items-center p-1">
+                            <div className="mr-auto">No content</div>
+                        </Dropdown.Item>): favouritesItem
+                    }
                 </Dropdown.Menu>
             </Dropdown>
+
+
         )
     }
 

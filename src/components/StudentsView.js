@@ -72,56 +72,45 @@ class StudentsView extends Component {
 
     updateApi = () => {
         const { locationCurrent } = this.props //destructure data
+        /*if(Object.keys(locationCurrent).length==0||locationCurrent==null){
+            this.setState({
+                ...this.state,
+                user: {
+                    ...this.state.user,
+                    location: {}
+                },
 
-        const { image } = locationCurrent
-        const { floorDimension } = locationCurrent
-        const { mapCoordinate } = locationCurrent
-
-        const location = {
-            mapHierarchyFloor: locationCurrent.mapHierarchyFloor,
-            ...mapCoordinate
+            })
         }
+        else{*/
+            const { image } = locationCurrent
+            const { floorDimension } = locationCurrent
+            const { mapCoordinate } = locationCurrent
 
-        const data = CalcPosition(image, floorDimension, location)
+            const location = {
+                mapHierarchyFloor: locationCurrent.mapHierarchyFloor,
+                ...mapCoordinate
+            }
 
-        //
-        // const floor = locationCurrent.mapHierarchyFloor.split(">")
-        //
-        //
-        // //init all data
-        // const { image } = locationCurrent
-        // const { floorDimension } = locationCurrent
-        // const { mapCoordinate } = locationCurrent
-        //
-        // const kWidth = image.width / floorDimension.width
-        // const kHeight = image.height / floorDimension.length
-        // const width = kWidth * mapCoordinate.x
-        // const height = kHeight * mapCoordinate.y
+             const data = CalcPosition(image, floorDimension, location)
 
-        this.setState({
-            ...this.state,
-            building: data.floor[data.floor.length - 2],
-            currentFloor: data.floor[data.floor.length - 1],
-            user: {
-                ...this.state.user,
-                location: {
-                    floor: data.floor[data.floor.length - 1],
-                    x: data.width,
-                    y: data.height,
-                }
-            },
-            api: locationCurrent
+            this.setState({
+                ...this.state,
+                building: data.floor[data.floor.length - 2],
+                currentFloor: data.floor[data.floor.length - 1],
+                user: {
+                    ...this.state.user,
+                    location: {
+                        floor: data.floor[data.floor.length - 1],
+                        x: data.width,
+                        y: data.height,
+                    }
+                },
+                api: locationCurrent
 
-        })
+            })
+        //}
 
-        // ...this.state.api,
-        //     mapCoordinate: mapCoordinate,
-        //     floorDimension: floorDimension,
-        //     image: {
-        // ...image,
-        //         width: width,
-        //         height: height
-        // }
     }
 
     handleFloorChange(action) {

@@ -2,8 +2,10 @@ import axios from "axios";
 
 export const getFavouriteTeachersIpcn = (iPcn) => {
     return (dispatch) => {
+
         axios.get(`/student/${iPcn}/favourites`)
             .then(response => {
+
                 dispatch({type: 'GET_FAVOURITE_TEACHERS_IPCN', data: response.data.favourites})
             })
             .catch(err => console.log(err))

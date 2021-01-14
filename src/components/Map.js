@@ -36,18 +36,20 @@ class Map extends Component {
 
             <div>
                 {/*<h3>{data.building} - Floor {data.currentFloor}</h3>*/}
-                <h4>You are on the {user.location.floor} floor.</h4>
-                <div className="floor-map">
+                {Object.keys(user.location).length==0||user.location==null ?
+                <h1>No content.</h1>: <><h4>You are on the {user.location.floor} floor.</h4>
+                    <div className="floor-map">
 
                     <img src={`https://api.fhict.nl/location/mapimage/EHV/R10/${currentFloor}`}
-                         style={{position: "relative"}} width={api.image.width}
-                         height={api.image.height} alt="floor map"
+                    style={{position: "relative"}} width={api.image.width}
+                    height={api.image.height} alt="floor map"
                     />
 
                     <MapObject person={user} currentFloor={currentFloor}/>
                     {teacher && teacher.info && <MapObject person={teacher} currentFloor={currentFloor}/>}
 
-                </div>
+                    </div></>
+                }
             </div>
         )
     }

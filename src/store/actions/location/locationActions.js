@@ -1,9 +1,10 @@
 import axios from 'axios';
 import authHeader from "../../../services/auth-header";
+import {setIsConnected} from "../connection/connectionAction.js"
 
 export const getCurrentUserLocation = () => {
     return (dispatch) => {
-        //send get request to fontys api to get the location
+        //send get request to Fontys api to get the location
         axios.get(`https://api.fhict.nl/location/current`, {headers: authHeader()})
             .then(res => {
                 const data = res.data[0];
@@ -14,10 +15,12 @@ export const getCurrentUserLocation = () => {
                     image: data.mapInfo.image,
                     floorDimension: data.mapInfo.floorDimension
                 }
-
+                dispatch(setIsConnected(true))
                 dispatch({type: 'GET_USER_LOCATION', data: locationCurrent})
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                dispatch(setIsConnected(false))
+            })
     }
 }
 
@@ -28,9 +31,11 @@ export const getTeacherLocation = (iPcn) => {
             .then(response => {
                 dispatch({type: 'GET_TEACHER_LOCATION', data: response.data})
             })*/
-
         const teachersLocations = getState().location.teachersLocations
-        const teacher = teachersLocations.find(t => t.teacher.iPcn === iPcn)
+        let teacher = teachersLocations.find(t => t.teacher.iPcn === iPcn)
+        if(teachersLocations.length==0 || teachersLocations==null){
+            teacher={}
+        }
         dispatch({type: 'GET_TEACHER_LOCATION', data: teacher.teacher})
     }
 }

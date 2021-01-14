@@ -124,7 +124,7 @@ class AutoCompleteText extends React.Component {
     }
 
     suggestionSelected(teacher) {
-        this.props.getTeacherLocation("i428100")
+        this.props.getTeacherLocation(teacher.id)
         this.props.getTeacherByiPcn(teacher.id)
 
         this.setState(() => ({
@@ -169,7 +169,7 @@ class AutoCompleteText extends React.Component {
             <div className="SearchBox">
                 <div className="SearchBoxText">
                     <input id={'searchbar'} value={this.state.text} onChange={this.handleTextInput} type="text"
-                           placeholder="Search..."
+                           placeholder={this.state.teachers.length==0||this.state.teachers==null ?"No content":"Search..."}
                            className="rounded mb-0"/>
                     {this.state.showSuggestions ? this.renderSuggestions() : null}
                 </div>
@@ -193,7 +193,7 @@ const mapDispatchToProps = (dispatch) => {
         getAllTeachers: () => dispatch(getAllTeachers()),
         getFavouriteTeachersIpcn: iPcn => dispatch(getFavouriteTeachersIpcn(iPcn)),
         editFavouriteTeachersIpcn: student => dispatch(editFavouriteTeachersIpcn(student)),
-        getTeacherLocation: iPcn => dispatch(getTeacherLocation('i431062')),
+        getTeacherLocation: iPcn => dispatch(getTeacherLocation(iPcn)),
         getTeacherByiPcn: iPcn => dispatch(getTeacherByiPcn(iPcn)),
         clearSelectedTeacher: () => dispatch(clearSelectedTeacher()),
         clearSelectedTeacherLocation: () => dispatch(clearSelectedTeacherLocation())
