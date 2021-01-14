@@ -124,11 +124,7 @@ class AutoCompleteText extends React.Component {
     }
 
     suggestionSelected(teacher) {
-<<<<<<< HEAD
-        this.props.getTeacherLocation(teacher.id)
-=======
-        this.props.getTeacherLocation("i431062")
->>>>>>> michael
+        this.props.getTeacherLocation(teacherid)
         this.props.getTeacherByiPcn(teacher.id)
 
         this.setState(() => ({
