@@ -69,48 +69,20 @@ class StudentsView extends Component {
 
     updateApi = () => {
         const { locationCurrent } = this.props //destructure data
-        /*if(Object.keys(locationCurrent).length==0||locationCurrent==null){
-            this.setState({
-                ...this.state,
-                user: {
-                    ...this.state.user,
-                    location: {}
-                },
 
-            })
+        const { image } = locationCurrent
+        const { floorDimension } = locationCurrent
+        const { mapCoordinate } = locationCurrent
+
+        const location = {
+            mapHierarchyFloor: locationCurrent.mapHierarchyFloor,
+            ...mapCoordinate
         }
-        else{*/
-            const { image } = locationCurrent
-            const { floorDimension } = locationCurrent
-            const { mapCoordinate } = locationCurrent
 
-            const location = {
-                mapHierarchyFloor: locationCurrent.mapHierarchyFloor,
-                ...mapCoordinate
-            }
-
-<<<<<<< HEAD
-             const data = CalcPosition(image, floorDimension, location)
-
-=======
         const data = CalcPosition(image, floorDimension, location)
-
-        // const floor = locationCurrent.mapHierarchyFloor.split(">")
-        //
-        //
-        // //init all data
-        // const { image } = locationCurrent
-        // const { floorDimension } = locationCurrent
-        // const { mapCoordinate } = locationCurrent
-        //
-        // const kWidth = image.width / floorDimension.width
-        // const kHeight = image.height / floorDimension.length
-        // const width = kWidth * mapCoordinate.x
-        // const height = kHeight * mapCoordinate.y
 
         if (this.state.user.location.floor !== data.floor[data.floor.length - 1] ||
             this.state.building !== data.floor[data.floor.length - 2]) {
->>>>>>> michael
             this.setState({
                 ...this.state,
                 building: data.floor[data.floor.length - 2],
@@ -124,12 +96,8 @@ class StudentsView extends Component {
                     }
                 },
                 api: locationCurrent
-<<<<<<< HEAD
+            })
 
-            })
-        //}
-=======
-            })
         } else {
             this.setState({
                 ...this.state,
@@ -144,9 +112,6 @@ class StudentsView extends Component {
                 api: locationCurrent
             })
         }
-
-
->>>>>>> michael
 
     }
 
@@ -176,12 +141,12 @@ class StudentsView extends Component {
         )
     };
 
-    // getSelectedTeacher = (teacher) => {
-    //     this.setState({
-    //         ...this.state,
-    //         selectedTeacher: teacher
-    //     })
-    // }
+    getSelectedTeacher = (teacher) => {
+        this.setState({
+            ...this.state,
+            selectedTeacher: teacher
+        })
+    }
 
     render() {
         return (
