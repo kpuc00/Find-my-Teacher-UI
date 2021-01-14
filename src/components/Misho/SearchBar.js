@@ -70,13 +70,13 @@ class AutoCompleteText extends React.Component {
         })
     }
 
-    // getItemById(id) {
-    //     for(let i=0; i<this.state.teachers.length; i++) {
-    //         if(this.state.teachers[i].id === id) {
-    //             return this.state.teachers[i]
-    //         }
-    //     }
-    // }
+    getItemById(id) {
+        for(let i=0; i<this.state.teachers.length; i++) {
+            if(this.state.teachers[i].id === id) {
+                return this.state.teachers[i]
+            }
+        }
+    }
 
     handleFavouriteInput(id) {
         let newFavourites = [...this.state.favourites]
@@ -124,7 +124,11 @@ class AutoCompleteText extends React.Component {
     }
 
     suggestionSelected(teacher) {
+<<<<<<< HEAD
         this.props.getTeacherLocation(teacher.id)
+=======
+        this.props.getTeacherLocation("i431062")
+>>>>>>> michael
         this.props.getTeacherByiPcn(teacher.id)
 
         this.setState(() => ({

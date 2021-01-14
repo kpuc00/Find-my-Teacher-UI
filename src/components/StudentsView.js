@@ -11,8 +11,6 @@ import BackBtn from './Kris/BackBtn';
 
 import Map from './Map';
 
-//Bootstrap
-
 //connect to store
 import { connect } from "react-redux";
 import { getCurrentUser } from "../store/actions/user/userActions";
@@ -32,7 +30,6 @@ class StudentsView extends Component {
             floors: ["BG", "1e", "2e", "3e", "4e"],
             currentFloor: "BG",
             floorIndex: 0,
-
             user: {
                 info: {},
                 location: {}
@@ -92,8 +89,28 @@ class StudentsView extends Component {
                 ...mapCoordinate
             }
 
+<<<<<<< HEAD
              const data = CalcPosition(image, floorDimension, location)
 
+=======
+        const data = CalcPosition(image, floorDimension, location)
+
+        // const floor = locationCurrent.mapHierarchyFloor.split(">")
+        //
+        //
+        // //init all data
+        // const { image } = locationCurrent
+        // const { floorDimension } = locationCurrent
+        // const { mapCoordinate } = locationCurrent
+        //
+        // const kWidth = image.width / floorDimension.width
+        // const kHeight = image.height / floorDimension.length
+        // const width = kWidth * mapCoordinate.x
+        // const height = kHeight * mapCoordinate.y
+
+        if (this.state.user.location.floor !== data.floor[data.floor.length - 1] ||
+            this.state.building !== data.floor[data.floor.length - 2]) {
+>>>>>>> michael
             this.setState({
                 ...this.state,
                 building: data.floor[data.floor.length - 2],
@@ -107,9 +124,29 @@ class StudentsView extends Component {
                     }
                 },
                 api: locationCurrent
+<<<<<<< HEAD
 
             })
         //}
+=======
+            })
+        } else {
+            this.setState({
+                ...this.state,
+                user: {
+                    ...this.state.user,
+                    location: {
+                        floor: data.floor[data.floor.length - 1],
+                        x: data.width,
+                        y: data.height,
+                    }
+                },
+                api: locationCurrent
+            })
+        }
+
+
+>>>>>>> michael
 
     }
 
@@ -139,12 +176,12 @@ class StudentsView extends Component {
         )
     };
 
-    getSelectedTeacher = (teacher) => {
-        this.setState({
-            ...this.state,
-            selectedTeacher: teacher
-        })
-    }
+    // getSelectedTeacher = (teacher) => {
+    //     this.setState({
+    //         ...this.state,
+    //         selectedTeacher: teacher
+    //     })
+    // }
 
     render() {
         return (
