@@ -4,6 +4,7 @@ import MapObject from "../components/MapObject";
 
 import {connect} from "react-redux";
 import {getTeacherLocation} from "../store/actions/location/locationActions";
+import NoContentComponent from "./Alexander/NoContentComponent";
 
 class Map extends Component {
 
@@ -36,19 +37,24 @@ class Map extends Component {
 
             <div>
                 {/*<h3>{data.building} - Floor {data.currentFloor}</h3>*/}
-                {Object.keys(user.location).length==0||user.location==null ?
-                <h1>No content.</h1>: <><h4>You are on the {user.location.floor} floor.</h4>
-                    <div className="floor-map">
+                {!this.props.connection ?
+                    <NoContentComponent/>
+                    :
+                    <>
+                        <h4>You are on the {user.location.floor} floor.</h4>
 
-                    <img src={`https://api.fhict.nl/location/mapimage/EHV/R10/${currentFloor}`}
-                    style={{position: "relative"}} width={api.image.width}
-                    height={api.image.height} alt="floor map"
-                    />
+                        <div className="floor-map">
 
-                    <MapObject person={user} currentFloor={currentFloor}/>
-                    {teacher && teacher.info && <MapObject person={teacher} currentFloor={currentFloor}/>}
+                            <img src={`https://api.fhict.nl/location/mapimage/EHV/R10/${currentFloor}`}
+                                 style={{position: "relative"}} width={api.image.width}
+                                 height={api.image.height} alt="floor map"
+                            />
 
-                    </div></>
+                            <MapObject person={user} currentFloor={currentFloor}/>
+                            {teacher && teacher.info && <MapObject person={teacher} currentFloor={currentFloor}/>}
+
+                        </div>
+                    </>
                 }
             </div>
         )
@@ -59,7 +65,8 @@ const mapStateToProps = (state) => {
     return {
         teacherLocation: state.location.teacherLocation,
         selectedTeacher: state.teacher.selectedTeacher,
-        teachersLocations: state.location.teachersLocations
+        teachersLocations: state.location.teachersLocations,
+        connection: state.connection.isConnected
     }
 }
 

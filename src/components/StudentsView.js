@@ -19,6 +19,7 @@ import { getCurrentUserLocation } from "../store/actions/location/locationAction
 import ToggleLocationBtn from "./Kris/ToggleLocationBtn";
 import { CalcPosition } from "../services/CalcPosition";
 import {socket} from "../services/socket";
+import NoContentComponent from "./Alexander/NoContentComponent";
 
 let interval;
 class StudentsView extends Component {
@@ -172,7 +173,7 @@ class StudentsView extends Component {
                             </div>
                         </div>
                     </div> :
-                    "Loading..."
+                    <NoContentComponent/>
                 }
                 <div className="row">
                     <div className="col">
