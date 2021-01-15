@@ -18,14 +18,8 @@ function App() {
     }
 
     return (
-      /*  <Router>
+        <Router>
             <Switch>
-                {/!*<Route exact path="/" component={() =>*!/}
-                {/!*    window.location.href = "https://identity.fhict.nl/connect/authorize?client_id=i431062-findmyteac&scope=fhict%20fhict_location%20fhict_personal&response_type=token&redirect_uri=https://find-my-teacher.azurewebsites.net/student"}*!/}
-                {/!*    return null*!/}
-                {/!*!/>*!/}
-
-                {/!*<Route path="/student" component={StudentsView} />*!/}
 
                 <Authenticate
                     loginCompletePath="/student"
@@ -42,12 +36,12 @@ function App() {
                         redirect_uri: "https://find-my-teacher.azurewebsites.net/student"
                     }}
                 >
-*/
+
                     <StudentsView/>
 
-                /*</Authenticate>
+                </Authenticate>
             </Switch>
-        </Router>*/
+        </Router>
     );
 }
 
