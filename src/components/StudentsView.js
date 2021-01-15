@@ -165,7 +165,7 @@ class StudentsView extends Component {
                     <div className="my-3">
                         <div className="row">
                             <div className="col">
-                                <ToggleLocationBtn data={this.state}/>
+                                {!this.state.user.info.affiliations.includes("student")&&<ToggleLocationBtn data={this.state}/>}
                             </div>
                         </div>
                         <div className="row ">
