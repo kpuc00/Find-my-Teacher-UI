@@ -88,6 +88,7 @@ class StudentsView extends Component {
                 ...this.state,
                 building: data.floor[data.floor.length - 2],
                 currentFloor: data.floor[data.floor.length - 1],
+                floorIndex: this.state.floors.indexOf(data.floor[2]),
                 user: {
                     ...this.state.user,
                     location: {
